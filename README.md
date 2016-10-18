@@ -6,6 +6,6 @@ This project is a centralized system for the storing and sharing of data and scr
 ## Team Members 
 1. Brandon Tomblinson
 2. Benjamin Brown
-3. Kienan Delany
+3. Kienan Delaney
 4. Daniel Darnold
 5. Chalermpon Thongmotai
