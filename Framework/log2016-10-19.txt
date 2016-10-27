@@ -1,0 +1,1 @@
+2016-10-19 17:29:20,873 Framework\Logging DEBUG This is a test from file 1
