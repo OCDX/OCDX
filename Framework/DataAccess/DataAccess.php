@@ -13,8 +13,11 @@ namespace DataAccess {
             $this->connection = new \mysqli($this->host, $this->user, $this->password, $this->database);
         }
 
+        public function close(){
+            return $this->connection->close();
+        }
         public function __destruct() {
-            $this->connection->close();
+            close();
         }
 
     }
