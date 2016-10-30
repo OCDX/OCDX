@@ -13,6 +13,5 @@ class DataAccessTest extends TestCase {
     public function testConnection() {
         $this->connection = new DataAccess();
         $this->assertEquals($this->connection->connection->ping(), true);
-        $this->assertTrue($this->connection->close());
     }
 }

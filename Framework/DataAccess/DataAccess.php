@@ -16,9 +16,6 @@ namespace DataAccess {
         public function close(){
             return $this->connection->close();
         }
-        public function __destruct() {
-            close();
-        }
 
     }
 
