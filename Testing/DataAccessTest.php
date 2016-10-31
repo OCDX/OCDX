@@ -15,7 +15,7 @@ class DataAccessTest extends TestCase {
         $this->assertEquals($this->connection->connection->ping(), true);
     }
 
-    public function testInsertCreator() {
+    public function testInsertUser() {
         $this->connection = new DataAccess();
         $this->assertEquals($this->connection->insertUser('automated test', '123456'), 1);
     }
