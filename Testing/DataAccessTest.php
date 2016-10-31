@@ -18,4 +18,9 @@ class DataAccessTest extends TestCase {
         $this->connection = new DataAccess();
         $this->assertEquals($this->connection->insertManifest('1.0', 'automated test', 'This is an automated test'),1);
     }
+    public function testGetManifestById(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->getManifestById(1);
+        $this->assertNotEquals($result,false);
+    }
 }

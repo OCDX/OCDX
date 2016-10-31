@@ -5,12 +5,11 @@ namespace Framework {
 
     class Logging {
 
-        /** Holds the Logger. */
         private $log;
 
         /** Logger is instantiated in the constructor. */
         public function __construct() {
-            \Logger::configure('config.xml');
+            \Logger::configure('../Framework/Logging/config.xml');
             $this->log = \Logger::getLogger(__CLASS__);
         }
 

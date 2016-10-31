@@ -1,8 +1,7 @@
 <?php
 
 namespace DataAccess {
-
-
+    include("../Framework/Logging/Logging.php");
 
     class DataAccess {
 
@@ -10,28 +9,39 @@ namespace DataAccess {
         private $user = 'public';
         private $password = 'P@ssword';
         private $database = 'Group1OCDX';
-        private $logger;
+        public $connection;
 
         public function __construct() {
             $this->connection = new \mysqli($this->host, $this->user, $this->password, $this->database);
         }
 
-        public function getManifestById() {
-            if (!$this->connection->query("CALL pGetManfestById()")) {
-                
+        public function getManifestById($manifest_id) {
+            $stmt = $this->connection->prepare("CALL pGetManifestById(?)");
+            $stmt->bind_param("i", $manifest_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $log = new \Framework\Logging();
+                $log->logError("There was an error retreiving a manifest:" . $this->connection->error);
+                return null;
             }
+            $stmt->close();
+            return $result;
         }
 
         public function insertManifest($standard_version, $creator, $comment) {
-            $this->connection->query("SET @standard_version  = " . "'" . $this->connection->real_escape_string($standard_version) . "'");
-            $this->connection->query("SET @creator  = " . "'" . $this->connection->real_escape_string($creator) . "'");
-            $this->connection->query("SET @comment  = " . "'" . $this->connection->real_escape_string($comment) . "'");
+            $stmt = $this->connection->prepare("CALL pInsertManifest(?,?,?)");
+            $stmt->bind_param("sss", $standard_version, $creator, $comment);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
 
-            if (!$this->connection->query("CALL pInsertManifest(@standard_version,@creator,@comment)")) {
-                die("CALL failed: (" . $this->connection->errno . ") " . $this->connection->error);
+            if ($result == -1) {
+                $log = new \Framework\Logging();
+                $log->logError("There was an error inserting a manifest:" . $this->connection->error);
                 return -1;
             }
-            return $this->connection->affected_rows;
+            $stmt->close();
+            return $result;
         }
 
         public function close() {
