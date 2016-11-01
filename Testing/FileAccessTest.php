@@ -20,13 +20,13 @@ class FileAccessTest extends TestCase {
         );
 
         $fileAccess = new FileAccess();
-        $this->assertEquals($fileAccess->uploadFile($_FILES["test"]),true);
+        $this->assertEquals($fileAccess->uploadFile($_FILES["test"]), true);
         unset($_FILES);
     }
-    
-    public function testGet(){
-                $fileAccess = new FileAccess();
-        $this->assertEquals($fileAccess->getFile("FileAccessTestFile.txt"),true);
+
+    public function testGet() {
+        $fileAccess = new FileAccess();
+        $this->assertNotEquals($fileAccess->getFile("FileAccessTestFile.txt"), false);
     }
 
 }
