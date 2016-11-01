@@ -1,7 +1,7 @@
 <?php
 
 namespace DataAccess {
-    include("../Framework/Logging/Logging.php");
+    include_once("../Framework/Logging/Logging.php");
 
     class DataAccess {
 
@@ -10,8 +10,12 @@ namespace DataAccess {
         private $password = 'P@ssword';
         private $database = 'OCDXGroup1';
         public $connection;
+        private $logger = null;
 
         public function __construct() {
+            if ($this->logger == null) {
+                $this->logger = new \Framework\Logging();
+            }
             $this->connection = new \mysqli($this->host, $this->user, $this->password, $this->database);
         }
 
@@ -23,8 +27,7 @@ namespace DataAccess {
             $result = $stmt->affected_rows;
 
             if ($result == -1) {
-                $log = new \Framework\Logging();
-                $log->logError("There was an error inserting a user:" . $this->connection->error);
+                $this->loggger->logError("There was an error inserting a user:" . $this->connection->error);
                 return -1;
             }
             $stmt->close();
@@ -37,8 +40,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $log = new \Framework\Logging();
-                $log->logError("There was an error retreiving a user:" . $this->connection->error);
+                $this->loggger->logError("There was an error retreiving a user:" . $this->connection->error);
                 return null;
             }
             $stmt->close();

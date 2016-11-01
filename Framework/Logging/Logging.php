@@ -1,7 +1,7 @@
 <?php
 
 namespace Framework {
-    require_once 'log4php/Logger.php';
+    include_once 'log4php/Logger.php';
 
     class Logging {
 
@@ -28,8 +28,6 @@ namespace Framework {
         public function logErrorException($ex) {
             $this->log->error($ex->getMessage());
         }
-
     }
-
 }
 ?>

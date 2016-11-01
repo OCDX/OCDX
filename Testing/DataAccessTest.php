@@ -1,7 +1,7 @@
 <?php
 
-require_once 'PHPUnit/phpunit-5.6.2.phar';
-require_once '../Framework/DataAccess/DataAccess.php';
+include_once 'PHPUnit/phpunit-5.6.2.phar';
+include_once '../Framework/DataAccess/DataAccess.php';
 
 use PHPUnit\Framework\TestCase;
 use DataAccess\DataAccess;
