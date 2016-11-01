@@ -9,7 +9,12 @@ namespace Framework {
 
         /** Logger is instantiated in the constructor. */
         public function __construct() {
-            \Logger::configure('../Framework/Logging/config.xml');
+            if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
+                \Logger::configure('../Framework/Logging/config.xml');
+            }
+            else{
+                 \Logger::configure('../Logging/config.xml');
+            }
             $this->log = \Logger::getLogger(__CLASS__);
         }
 
@@ -28,6 +33,8 @@ namespace Framework {
         public function logErrorException($ex) {
             $this->log->error($ex->getMessage());
         }
+
     }
+
 }
 ?>

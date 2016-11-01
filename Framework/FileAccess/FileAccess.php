@@ -7,7 +7,12 @@
  */
 
 namespace FileAccess {
-    include_once("../Framework/Logging/Logging.php");
+    if(strpos($_SERVER['argv'][0], 'phpunit') !== FALSE){
+    include_once "../Framework/Logging/Logging.php";
+    }
+    else{
+        include_once "../Logging/Logging.php";
+    }
 
     class FileAccess {
 

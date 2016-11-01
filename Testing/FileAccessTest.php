@@ -23,7 +23,7 @@ class FileAccessTest extends TestCase {
         $this->assertEquals($fileAccess->uploadFile($_FILES["test"]),true);
         unset($_FILES);
     }
-
+    
     public function testGet(){
                 $fileAccess = new FileAccess();
         $this->assertEquals($fileAccess->getFile("FileAccessTestFile.txt"),true);
