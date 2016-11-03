@@ -17,7 +17,8 @@ class DataAccessTest extends TestCase {
 
     public function testInsertUser() {
         $this->connection = new DataAccess();
-        $this->assertEquals($this->connection->insertUser('automated test', '123456'), 1);
+        $rand = rand();
+        $this->assertEquals($this->connection->insertUser('automated test'.$rand, $rand), 1);
     }
 
     public function testGetUserByUserName() {
