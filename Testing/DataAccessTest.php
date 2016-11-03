@@ -18,24 +18,19 @@ class DataAccessTest extends TestCase {
     public function testInsertUser() {
         $this->connection = new DataAccess();
         $rand = rand();
-        $this->assertEquals($this->connection->insertUser('automated test'.$rand, $rand), 1);
+        $this->assertEquals($this->connection->insertUser('automatedTestInDataAccess' . $rand, $rand), 1);
     }
 
     public function testGetUserByUserName() {
         $this->connection = new DataAccess();
         $result = $this->connection->getUserByUserName('automated test');
-        $this->assertNotEquals($result, false);
+        $this->assertEquals($result->fetch_assoc()["username"], 'automated test');
     }
 
-    /*
-      public function testInsertManifest(){
-      $this->connection = new DataAccess();
-      $this->assertEquals($this->connection->insertManifest('1.0', 'automated test', 'This is an automated test'),1);
-      }
-      public function testGetManifestById(){
-      $this->connection = new DataAccess();
-      $result = $this->connection->getManifestById(1);
-      $this->assertNotEquals($result,false);
-      }
-     */
+    public function testGetUserByUserNameIncorrectUserName() {
+        $this->connection = new DataAccess();
+        $result = $this->connection->getUserByUserName('This is an nonexistant username');
+        $this->assertEquals($result->num_rows, 0);
+    }
+
 }
