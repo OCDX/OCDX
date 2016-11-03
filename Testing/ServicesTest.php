@@ -27,4 +27,15 @@ class ServicesTest extends TestCase {
         unset($_GET);
     }
 
+    public function testSuccessfulSignup() {
+        $rand = rand();
+        $_GET = array(
+            'username' => 'automatedTestFromServices' . $rand,
+            'password' => $rand
+        );
+        require '../services/signup.php';
+        $this->expectOutputString("{\"success\":\"true\"}");
+        unset($_GET);
+    }
+
 }
