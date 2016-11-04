@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Testing" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+    <TestRunner directory="$PROJECT_DIR$/Testing" />
+    <method />
+  </configuration>
+</component>
