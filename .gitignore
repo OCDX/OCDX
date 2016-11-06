@@ -1,7 +1,2 @@
-
-.idea/OCDXGroupProject.iml
-.idea/copyright/
-.idea/modules.xml
-.idea/php.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.idea/*
+.DS_Store
