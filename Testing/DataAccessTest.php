@@ -51,4 +51,18 @@ class DataAccessTest extends TestCase {
         $this->assertGreaterThan(0,$result->num_rows);
     }
 
+    public function testInsertingAndDeletingAManifest(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertManifest('automatedTest','automatedTest',1,'automatedTest');
+        $this->assertNotEquals($result,null);
+        $result = $this->connection->deleteManifest($result->fetch_assoc()['id']);
+        $this->assertNotEquals($result,null);
+    }
+
+    public function testInsertResearchObject(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertResearchObject('automatedTest','automatedTest',0,'automatedTest','automatedTest','automatedTest','automatedTest','automatedTest',41);
+        $this->assertNotEquals($result,null);
+    }
+
 }
