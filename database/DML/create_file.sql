@@ -23,7 +23,7 @@ CREATE PROCEDURE create_file(OUT file_id_out INT(10), IN name_in VARCHAR(50), IN
 		size_in,
 		url_in,
 		checksum_in,
-		reseach_object_id_in,
+		research_object_id_in,
 		created_on_in);
         
         SELECT LAST_INSERT_ID() INTO file_id_out;
