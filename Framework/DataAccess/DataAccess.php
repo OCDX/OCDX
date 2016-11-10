@@ -27,7 +27,7 @@ namespace DataAccess {
             $result = $stmt->affected_rows;
 
             if ($result == -1) {
-                $this->loggger->logError("There was an error inserting a user:" . $this->connection->error);
+                $this->loggger->logError("There was an error inserting a user: " . $this->connection->error);
                 return -1;
             }
             $stmt->close();
@@ -40,56 +40,51 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error retreiving a user:" . $this->connection->error);
+                $this->loggger->logError("There was an error retreiving a user: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
             return $result;
         }
 
-        /*
-          public function insertManifest($standard_version, $creator, $comment) {
-          $stmt = $this->connection->prepare("CALL pInsertManifest(?,?,?)");
-          $stmt->bind_param("sss", $standard_version, $creator, $comment);
-          $stmt->execute();
-          $result = $stmt->affected_rows;
+        public function searchByFilename($filename){
+            $stmt = $this->connection->prepare("CALL pSearchByFilename(?)");
+            $stmt->bind_param("s", $filename);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->loggger->logError("There was an error retreiving a file by file name: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
 
-          if ($result == -1) {
-          $log = new \Framework\Logging();
-          $log->logError("There was an error inserting a manifest:" . $this->connection->error);
-          return -1;
-          }
-          $stmt->close();
-          return $result;
-          }
-          public function getManifestById($manifest_id) {
-          $stmt = $this->connection->prepare("CALL pGetManifestById(?)");
-          $stmt->bind_param("i", $manifest_id);
-          $stmt->execute();
-          $result = $stmt->get_result();
-          if (!$result) {
-          $log = new \Framework\Logging();
-          $log->logError("There was an error retreiving a manifest:" . $this->connection->error);
-          return null;
-          }
-          $stmt->close();
-          return $result;
-          }
+        public function searchByFiletype($filetype){
+            $stmt = $this->connection->prepare("CALL pSearchByFiletype(?)");
+            $stmt->bind_param("s", $filetype);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->loggger->logError("There was an error retreiving a file by file type: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
 
-          public function insertManifest($standard_version, $creator, $comment) {
-          $stmt = $this->connection->prepare("CALL pInsertManifest(?,?,?)");
-          $stmt->bind_param("sss", $standard_version, $creator, $comment);
-          $stmt->execute();
-          $result = $stmt->affected_rows;
-
-          if ($result == -1) {
-          $log = new \Framework\Logging();
-          $log->logError("There was an error inserting a manifest:" . $this->connection->error);
-          return -1;
-          }
-          $stmt->close();
-          return $result;
-          } */
+        public function searchByUsername($username){
+            $stmt = $this->connection->prepare("CALL pSearchByUsername(?)");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->loggger->logError("There was an error retreiving a file by user name: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
 
         public function close() {
             return $this->connection->close();
