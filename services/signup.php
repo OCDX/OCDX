@@ -1,8 +1,8 @@
 <?php
 
 include_once "../Framework/DataAccess/DataAccess.php";
-$username = $_GET["username"];
-$password = $_GET["password"];
+$username = $_POST["username"];
+$password = $_POST["password"];
 
 $dataAccess = new \DataAccess\DataAccess();
 
