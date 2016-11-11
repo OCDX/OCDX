@@ -9,6 +9,6 @@ BEGIN
         ON manifest.user_id = users.user_id
       INNER JOIN OCDXGroup1.files
         ON research_object.research_object_id = files.research_object_id
-    WHERE files.name = 'filename.json';
+    WHERE files.name = filename_input;
   END$$
 DELIMITER ;
