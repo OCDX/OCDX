@@ -1,7 +1,7 @@
 <?php
 
 namespace DataAccess {
-    include_once("../Framework/Logging/Logging.php");
+    include_once('../Framework/Logging/Logging.php');
 
     class DataAccess
     {
@@ -124,11 +124,25 @@ namespace DataAccess {
         public function insertResearchObject($title, $abstract, $oversight, $oversightType, $informedConsent, $privacy, $provenance, $permissions, $manifestId)
         {
             $stmt = $this->connection->prepare("CALL pInsertResearchObject(?,?,?,?,?,?,?,?,?)");
-            $stmt->bind_param("ssisssssi", $title,$abstract,$oversight,$oversightType,$informedConsent,$privacy,$provenance,$permissions,$manifestId);
+            $stmt->bind_param("ssisssssi", $title, $abstract, $oversight, $oversightType, $informedConsent, $privacy, $provenance, $permissions, $manifestId);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
                 $this->loggger->logError("There was an error inserting a research object: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function insertResearcher($name, $role, $type, $contact)
+        {
+            $stmt = $this->connection->prepare("CALL pInsertResearcher(?,?,?,?)");
+            $stmt->bind_param("ssss", $name, $role, $type, $contact);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            if ($stmt->affected_rows == -1) {
+                $this->loggger->logError("There was an error inserting a researcher: " . $this->connection->error);
                 return null;
             }
             $stmt->close();

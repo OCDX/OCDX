@@ -75,4 +75,10 @@ class DataAccessTest extends TestCase
         $this->assertNotEquals(null, $result);
     }
 
+    public function testInsertResearcher(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertResearcher('automatedTest', 'automatedTest','automatedTest','automatedTest');
+        $this->assertNotEquals(null, $result);
+    }
+
 }
