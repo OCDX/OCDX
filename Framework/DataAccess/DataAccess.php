@@ -131,9 +131,6 @@ namespace DataAccess {
                 $this->loggger->logError("There was an error inserting a research object: " . $this->connection->error);
                 return null;
             }
-            if(!$result){
-                return null;
-            }
             $stmt->close();
             return $result;
         }
