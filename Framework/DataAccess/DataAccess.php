@@ -121,7 +121,7 @@ namespace DataAccess {
             return $result;
         }
 
-        public function insertResearchObject($title,$abstract,$oversight,$oversightType,$informedConsent,$privacy,$provenance,$permissions,$manifestId)
+        public function insertResearchObject($title, $abstract, $oversight, $oversightType, $informedConsent, $privacy, $provenance, $permissions, $manifestId)
         {
             $stmt = $this->connection->prepare("CALL pInsertResearchObject(?,?,?,?,?,?,?,?,?)");
             $stmt->bind_param("ssisssssi", $title,$abstract,$oversight,$oversightType,$informedConsent,$privacy,$provenance,$permissions,$manifestId);
@@ -129,6 +129,9 @@ namespace DataAccess {
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
                 $this->loggger->logError("There was an error inserting a research object: " . $this->connection->error);
+                return null;
+            }
+            if(!$result){
                 return null;
             }
             $stmt->close();
