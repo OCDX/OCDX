@@ -29,7 +29,7 @@ class ServicesTest extends TestCase {
 
     public function testSuccessfulSignup() {
         $rand = rand();
-        $_GET = array(
+        $_POST = array(
             'username' => 'automatedTestFromServices' . $rand,
             'password' => $rand
         );
