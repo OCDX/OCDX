@@ -29,7 +29,7 @@ class ServicesTest extends TestCase {
 
     public function testSuccessfulSignup() {
         $rand = rand();
-        $_GET = array(
+        $_POST = array(
             'username' => 'automatedTestFromServices' . $rand,
             'password' => $rand
         );
@@ -37,5 +37,30 @@ class ServicesTest extends TestCase {
         $this->expectOutputString("{\"success\":\"true\"}");
         unset($_GET);
     }
-
+    
+    public function testGetFileByFileName(){ 
+         $_GET = array(
+            'filename' => 'filename.json'
+        );
+        require '../services/SearchByFileName.php';
+        unset($_GET);
+    }
+    
+    public function testGetFileByFileType(){
+        $_GET = array(
+            'filetype' => 'filetype.json'
+        );
+        require'../services/SearchByFileType.php';
+        unset($_GET);
+    }
+    
+    public function testGetUserByUsername(){
+        $_GET = array(
+            'username' => 'username.json'
+        );
+        require'../services/SearchByUsername.php';
+        unset($_GET);
+    }
 }
+
+?>
