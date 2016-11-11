@@ -18,15 +18,24 @@ use PHPUnit\Framework\TestCase;
 class ServicesTest extends TestCase {
 
     public function testSuccessfulLogin() {
-        $_GET = array(
+        $_POST = array(
             'username' => 'automated test',
             'password' => '123456'
         );
         require '../services/getUser.php';
         $this->expectOutputString("{\"success\":\"true\"}");
-        unset($_GET);
+        unset($_POST);
     }
 
+    public function testSignupOfUserThatAlreadyExists(){
+        $_POST = array(
+            'username' => 'automated test',
+            'password' => '123456'
+        );
+        require '../services/signup.php';
+        $this->expectOutputString("{\"success\":\"false\"}");
+        unset($_POST);
+    }
     public function testSuccessfulSignup() {
         $rand = rand();
         $_POST = array(
@@ -35,7 +44,7 @@ class ServicesTest extends TestCase {
         );
         require '../services/signup.php';
         $this->expectOutputString("{\"success\":\"true\"}");
-        unset($_GET);
+        unset($_POST);
     }
     
     public function testGetFileByFileName(){ 
