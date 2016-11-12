@@ -1,6 +1,7 @@
 <?php
 
 include_once "../Framework/DataAccess/DataAccess.php";
+if(isset($_POST["username"]) && isset($_POST["password"])){
 $username = $_POST["username"];
 $password = $_POST["password"];
 
@@ -19,5 +20,9 @@ else {
     } else {
         echo "{\"success\":\"false\"}";
     }
+}
+}
+else{
+    echo "{\"success\":\"false\"}";
 }
 ?>
