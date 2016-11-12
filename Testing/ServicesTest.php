@@ -49,28 +49,25 @@ class ServicesTest extends TestCase {
 
     public function testGetUserByUsername(){
         $_POST = array(
-            'username' => 'automatedTestFromServices'
+            'username' => 'username.json'
         );
         require '../services/getUserByUsername.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
         unset($_POST);
     }
 
     public function testGetFileByFileName(){
         $_POST = array(
-            'filename' => 'automatedTestFromServices'
+            'filename' => 'filename.json'
         );
         require '../services/getFileByFileName.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
         unset($_POST);
     }
 
     public function testGetFileByFileType(){
          $_POST = array(
-            'filetype' => 'automatedTestFromServices'
+            'filetype' => 'filetype.json'
         );
         require '../services/getFileByFileType.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
         unset($_POST);
     }
 
