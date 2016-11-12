@@ -1,10 +1,10 @@
 <?php
 include_once "../Framework/DataAccess/DataAccess.php";
-$username = $_GET["username"];
+$username = $_POST["username"];
 
 $dataAccess = new \DataAccess\DataAccess();
 
-$result = $dataAccess->getUserByUserName($username);
+$result = $dataAccess->searchByUsername($username);
 
   echo json_encode($result);
 

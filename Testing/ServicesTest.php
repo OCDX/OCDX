@@ -23,7 +23,7 @@ class ServicesTest extends TestCase {
             'password' => '123456'
         );
         require '../services/getUser.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
+        $this->expectOutputString("{\"success\":true,\"msg\":\"Login successfully!\"}");
         unset($_POST);
     }
 
@@ -33,7 +33,7 @@ class ServicesTest extends TestCase {
             'password' => '123456'
         );
         require '../services/signup.php';
-        $this->expectOutputString("{\"success\":\"false\"}");
+        $this->expectOutputString("{\"success\":false,\"msg\":\"automated test is already taken.\"}");
         unset($_POST);
     }
     public function testSuccessfulSignup() {
@@ -43,15 +43,15 @@ class ServicesTest extends TestCase {
             'password' => $rand
         );
         require '../services/signup.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
+        $this->expectOutputString("{\"success\":true,\"msg\":\"automatedTestFromServices" . $rand. " is created.\"}");
         unset($_POST);
     }
 
     public function testGetUserByUsername(){
         $_POST = array(
-            'username' => 'username.json'
+            'username' => 'dummyuser'
         );
-        require '../services/getUserByUsername.php';
+        require '../services/searchByUsername.php';
         unset($_POST);
     }
 
