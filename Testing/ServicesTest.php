@@ -47,4 +47,29 @@ class ServicesTest extends TestCase {
         unset($_POST);
     }
 
+    public function testGetUserByUsername(){
+        $_POST = array(
+            'username' => 'username.json'
+        );
+        require '../services/getUserByUsername.php';
+        unset($_POST);
+    }
+
+    public function testGetFileByFileName(){
+        $_POST = array(
+            'filename' => 'filename.json'
+        );
+        require '../services/getFileByFileName.php';
+        unset($_POST);
+    }
+
+    public function testGetFileByFileType(){
+         $_POST = array(
+            'filetype' => 'filetype.json'
+        );
+        require '../services/getFileByFileType.php';
+        unset($_POST);
+    }
+
+
 }
