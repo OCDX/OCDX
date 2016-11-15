@@ -28,7 +28,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error retreiving a user: " . $this->connection->error);
+                $this->logger->logError("There was an error retreiving a user: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -42,7 +42,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by user name: " . $this->connection->error);
+                $this->logger->logError("There was an error retreiving a file by user name: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -55,7 +55,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error searching a manifest: " . $this->connection->error);
+                $this->logger->logError("There was an error searching a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -63,21 +63,27 @@ namespace DataAccess {
         }
 
         public function insertFile($file,$abstract,$researchId){
-            $name = $file["name"];
-            $type = explode(".",$name)[1];
-            $size = $file["size"];
-            $url = "/publicFiles/".$name;
-            $checksum ="";
-            $stmt = $this->connection->prepare("CALL pInsertFile(?,?,?,?,?,?,?)");
-            $stmt->bind_param("sssissi", $name,$type,$abstract,$size,$url,$checksum,$researchId);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a file: " . $this->connection->error);
-                return null;
+            if($file != null) {
+                $name = $file["name"];
+                $type = explode(".", $name)[1];
+                $size = $file["size"];
+                $url = "/publicFiles/" . $name;
+                $checksum = "";
+                $stmt = $this->connection->prepare("CALL pInsertFile(?,?,?,?,?,?,?)");
+                $stmt->bind_param("sssissi", $name, $type, $abstract, $size, $url, $checksum, $researchId);
+                $stmt->execute();
+                $result = $stmt->affected_rows;
+                if ($result == -1) {
+                    $this->logger->logError("There was an error inserting a file: " . $this->connection->error);
+                    return $result;
+                }
+                $stmt->close();
+                return $result;
             }
-            $stmt->close();
-            return $result;
+            else{
+                $this->logger->logError("There was an error inserting a file, the file was null");
+                return -1;
+            }
         }
 
         public function insertManifest($standardsVersion, $comment, $userId, $title)
@@ -87,7 +93,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a manifest: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -101,7 +107,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a research object: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a research object: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -115,7 +121,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->affected_rows;
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a researcher: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a researcher: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -131,7 +137,7 @@ namespace DataAccess {
             $result = $stmt->affected_rows;
 
             if ($result == -1) {
-                $this->loggger->logError("There was an error inserting a user: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a user: " . $this->connection->error);
                 return -1;
             }
             $stmt->close();
@@ -145,7 +151,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->affected_rows;
             if ($result == -1) {
-                $this->loggger->logError("There was an error deleting a manifest: " . $this->connection->error);
+                $this->logger->logError("There was an error deleting a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
