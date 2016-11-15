@@ -21,22 +21,6 @@ namespace DataAccess {
             $this->connection = new \mysqli($this->host, $this->user, $this->password, $this->database);
         }
 
-        public function insertUser($username, $password)
-        {
-            $hpass = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $this->connection->prepare("CALL pInsertUser(?,?)");
-            $stmt->bind_param("ss", $username, $hpass);
-            $stmt->execute();
-            $result = $stmt->affected_rows;
-
-            if ($result == -1) {
-                $this->loggger->logError("There was an error inserting a user: " . $this->connection->error);
-                return -1;
-            }
-            $stmt->close();
-            return $result;
-        }
-
         public function getUserByUserName($username)
         {
             $stmt = $this->connection->prepare("CALL pGetUserByUserName(?)");
@@ -50,7 +34,6 @@ namespace DataAccess {
             $stmt->close();
             return $result;
         }
-
 
         public function searchByUsername($username)
         {
@@ -66,14 +49,31 @@ namespace DataAccess {
             return $result;
         }
 
-        public function deleteManifest($manifest_id)
-        {
-            $stmt = $this->connection->prepare("CALL pDeleteManifest(?)");
-            $stmt->bind_param("i", $manifest_id);
+        public function searchManifest($searchField){
+            $stmt = $this->connection->prepare("CALL pSearchManifest(?)");
+            $stmt->bind_param("s", $searchField);
             $stmt->execute();
-            $result = $stmt->affected_rows;
-            if ($result == -1) {
-                $this->loggger->logError("There was an error deleting a manifest: " . $this->connection->error);
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->loggger->logError("There was an error searching a manifest: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function insertFile($file,$abstract,$researchId){
+            $name = $file["name"];
+            $type = explode(".",$name)[1];
+            $size = $file["size"];
+            $url = "/publicFiles/".$name;
+            $checksum ="";
+            $stmt = $this->connection->prepare("CALL pInsertFile(?,?,?,?,?,?,?)");
+            $stmt->bind_param("sssissi", $name,$type,$abstract,$size,$url,$checksum,$researchId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($stmt->affected_rows == -1) {
+                $this->loggger->logError("There was an error inserting a file: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -122,13 +122,30 @@ namespace DataAccess {
             return $result;
         }
 
-        public function searchManifest($searchField){
-            $stmt = $this->connection->prepare("CALL pSearchManifest(?)");
-            $stmt->bind_param("s", $searchField);
+        public function insertUser($username, $password)
+        {
+            $hpass = password_hash($password, PASSWORD_BCRYPT);
+            $stmt = $this->connection->prepare("CALL pInsertUser(?,?)");
+            $stmt->bind_param("ss", $username, $hpass);
             $stmt->execute();
-            $result = $stmt->get_result();
-            if (!$result) {
-                $this->loggger->logError("There was an error searching a manifest: " . $this->connection->error);
+            $result = $stmt->affected_rows;
+
+            if ($result == -1) {
+                $this->loggger->logError("There was an error inserting a user: " . $this->connection->error);
+                return -1;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function deleteManifest($manifest_id)
+        {
+            $stmt = $this->connection->prepare("CALL pDeleteManifest(?)");
+            $stmt->bind_param("i", $manifest_id);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            if ($result == -1) {
+                $this->loggger->logError("There was an error deleting a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();

@@ -69,6 +69,21 @@ class DataAccessTest extends TestCase
         $this->assertNotEquals(null, $result);
     }
 
+    public function testInsertFile(){
+        $_FILES = array(
+            'test' => array(
+                'name' => 'FileAccessTestFile.txt',
+                'type' => 'text/plain',
+                'size' => 58,
+                'tmp_name' => 'FileAccessTestFile.txt',
+                'error' => 0
+            )
+        );
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertFile($_FILES["test"],"This is an automated test",1);
+        $this->assertNotEquals(null, $result);
+    }
+
     public function testSearchManifest(){
         $this->connection = new DataAccess();
         $result = $this->connection->searchManifest('manifest');
