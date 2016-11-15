@@ -51,33 +51,6 @@ namespace DataAccess {
             return $result;
         }
 
-        public function searchByFilename($filename)
-        {
-            $stmt = $this->connection->prepare("CALL pSearchByFilename(?)");
-            $stmt->bind_param("s", $filename);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by file name: " . $this->connection->error);
-                return null;
-            }
-            $stmt->close();
-            return $result;
-        }
-
-        public function searchByFiletype($filetype)
-        {
-            $stmt = $this->connection->prepare("CALL pSearchByFiletype(?)");
-            $stmt->bind_param("s", $filetype);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by file type: " . $this->connection->error);
-                return null;
-            }
-            $stmt->close();
-            return $result;
-        }
 
         public function searchByUsername($username)
         {
@@ -143,6 +116,19 @@ namespace DataAccess {
             $result = $stmt->affected_rows;
             if ($stmt->affected_rows == -1) {
                 $this->loggger->logError("There was an error inserting a researcher: " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function searchManifest($searchField){
+            $stmt = $this->connection->prepare("CALL pSearchManifest(?)");
+            $stmt->bind_param("s", $searchField);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->loggger->logError("There was an error searching a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();

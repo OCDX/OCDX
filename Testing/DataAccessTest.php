@@ -38,19 +38,7 @@ class DataAccessTest extends TestCase
         $this->assertEquals(0, $result->num_rows);
     }
 
-    public function testGetFileByFileName()
-    {
-        $this->connection = new DataAccess();
-        $result = $this->connection->searchByFilename('filename.json');
-        $this->assertGreaterThan(0, $result->num_rows);
-    }
 
-    public function testGetFileByFileType()
-    {
-        $this->connection = new DataAccess();
-        $result = $this->connection->searchByFiletype('json');
-        $this->assertGreaterThan(0, $result->num_rows);
-    }
 
     public function testGetFileByUsername()
     {
@@ -78,6 +66,12 @@ class DataAccessTest extends TestCase
     public function testInsertResearcher(){
         $this->connection = new DataAccess();
         $result = $this->connection->insertResearcher('automatedTest', 'automatedTest','automatedTest','automatedTest');
+        $this->assertNotEquals(null, $result);
+    }
+
+    public function testSearchManifest(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->searchManifest('manifest');
         $this->assertNotEquals(null, $result);
     }
 
