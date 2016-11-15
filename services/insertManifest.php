@@ -13,4 +13,7 @@ if($userId != '') {
         echo json_encode(["success" => true]);
     }
 }
+else{
+    echo json_encode(["success" => false,"msg"=>"There is no username stored in session"]);
+}
 ?>
