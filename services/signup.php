@@ -21,6 +21,6 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
         }
     }
 } else {
-    echo "{\"success\":\"false\"}";
+    echo json_encode(["success" => false]);
 }
 ?>
