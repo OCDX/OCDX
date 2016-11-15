@@ -6,6 +6,6 @@ $dataAccess = new \DataAccess\DataAccess();
 
 $result = $dataAccess->searchByUsername($username);
 
-  echo json_encode($result);
+  echo json_encode($result->fetch_assoc());
 
  ?>
