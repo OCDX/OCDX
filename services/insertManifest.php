@@ -3,12 +3,14 @@
 include_once "../Framework/DataAccess/DataAccess.php";
 $standards = $_POST["standards"];
 $comments = $_POST["comment"];
-$userid = $_POST["userid"];
+$userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : '';
 $title = $_POST["title"];
 
-  $dataAccess = new \DataAccess\DataAccess();
-  $result = $dataAccess->insertManifest($standards,$comments,$userid,$title);
-  if($result->fetch_assoc()[0] > -1){
-      echo json_encode(["success"=>true]);
-  }
+if($userId != '') {
+    $dataAccess = new \DataAccess\DataAccess();
+    $result = $dataAccess->insertManifest($standards, $comments, $userId, $title);
+    if ($result->fetch_assoc()[0] > -1) {
+        echo json_encode(["success" => true]);
+    }
+}
 ?>

@@ -9,7 +9,9 @@ $result = $dataAccess->getUserByUserName($username);
 $row = $result->fetch_assoc();
 if (password_verify($password, $row["hashed_password"])) {
     echo json_encode(["success" => true, "msg" => "Login successfully!"]);
-    $_SESSION["key"] = rand();
+    $_SESSION["user_id"] = $row["user_id"];
+    $_SESSION["username"]= $row["username"];
+
 } else {
     echo json_encode(["success" => false, "msg" => "Please try again!"]);
 }
