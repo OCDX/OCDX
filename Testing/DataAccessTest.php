@@ -39,7 +39,6 @@ class DataAccessTest extends TestCase
     }
 
 
-
     public function testGetFileByUsername()
     {
         $this->connection = new DataAccess();
@@ -81,13 +80,20 @@ class DataAccessTest extends TestCase
         );
         $this->connection = new DataAccess();
         $result = $this->connection->insertFile($_FILES["test"],"This is an automated test",1);
-        $this->assertNotEquals(null, $result);
+        $this->assertGreaterThan(-1, $result);
+
     }
 
     public function testSearchManifest(){
         $this->connection = new DataAccess();
         $result = $this->connection->searchManifest('manifest');
         $this->assertNotEquals(null, $result);
+    }
+
+    public function testInsertFileEmptyFile(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertFile(null,"This is an automated test",1);
+        $this->assertEquals(-1, $result);
     }
 
 }
