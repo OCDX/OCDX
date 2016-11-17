@@ -13,6 +13,9 @@ namespace Framework {
                 if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
                     \Logger::configure('../Framework/Logging/config.xml');
                 }
+                else{
+                    \Logger::configure('../Logging/config.xml');
+                }
             }
             else{
                  \Logger::configure('../Logging/config.xml');
