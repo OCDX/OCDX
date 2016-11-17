@@ -1,10 +1,15 @@
 <?php
 include_once "../Framework/DataAccess/DataAccess.php";
-$searchField = $_GET["searchField"];
+$searchField = isset($_POST["searchField"]) ? $_POST["searchField"] : '';
 
-$dataAccess = new \DataAccess\DataAccess();
+if($searchField == ''){
+    echo  json_encode(["success"=>false, "msg" => "There was no search field"]);
+}
+else {
+    $dataAccess = new \DataAccess\DataAccess();
 
-$result = $dataAccess->getManifest($searchField);
+    $result = $dataAccess->searchManifest($searchField);
 
-  echo json_encode($result);
+    echo json_encode($result->fetch_assoc());
+}
 ?>
