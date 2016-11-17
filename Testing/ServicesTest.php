@@ -55,20 +55,18 @@ class ServicesTest extends TestCase {
         unset($_POST);
     }
 
-    public function testGetFileByFileName(){
+    public function testSearchManifest(){
         $_POST = array(
-            'filename' => 'filename.json'
+            'searchField' => 'manifest'
         );
-        require '../services/getFileByFileName.php';
+        require '../services/searchManifest.php';
+        $this->hasOutput();
         unset($_POST);
     }
 
-    public function testGetFileByFileType(){
-         $_POST = array(
-            'filetype' => 'filetype.json'
-        );
-        require '../services/getFileByFileType.php';
-        unset($_POST);
+    public function testSearchManifestEmptyPOST(){
+        require '../services/searchManifest.php';
+        $this->expectOutputString(json_encode(["success"=>false, "msg" => "There was no search field"]));
     }
 
 

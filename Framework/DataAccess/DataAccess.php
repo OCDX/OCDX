@@ -21,58 +21,15 @@ namespace DataAccess {
             $this->connection = new \mysqli($this->host, $this->user, $this->password, $this->database);
         }
 
-        public function insertUser($username, $password)
-        {
-            $hpass = password_hash($password, PASSWORD_BCRYPT);
-            $stmt = $this->connection->prepare("CALL pInsertUser(?,?)");
-            $stmt->bind_param("ss", $username, $hpass);
-            $stmt->execute();
-            $result = $stmt->affected_rows;
-
-            if ($result == -1) {
-                $this->loggger->logError("There was an error inserting a user: " . $this->connection->error);
-                return -1;
-            }
-            $stmt->close();
-            return $result;
-        }
-
         public function getUserByUserName($username)
         {
+            $this->logger->logInfo("Calling pGetUserByUserName, username is ".$username);
             $stmt = $this->connection->prepare("CALL pGetUserByUserName(?)");
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error retreiving a user: " . $this->connection->error);
-                return null;
-            }
-            $stmt->close();
-            return $result;
-        }
-
-        public function searchByFilename($filename)
-        {
-            $stmt = $this->connection->prepare("CALL pSearchByFilename(?)");
-            $stmt->bind_param("s", $filename);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by file name: " . $this->connection->error);
-                return null;
-            }
-            $stmt->close();
-            return $result;
-        }
-
-        public function searchByFiletype($filetype)
-        {
-            $stmt = $this->connection->prepare("CALL pSearchByFiletype(?)");
-            $stmt->bind_param("s", $filetype);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by file type: " . $this->connection->error);
+                $this->logger->logError("There was an error retreiving a user: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -86,36 +43,63 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->loggger->logError("There was an error retreiving a file by user name: " . $this->connection->error);
+                $this->logger->logError("There was an error retreiving a file by user name: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
             return $result;
         }
 
-        public function deleteManifest($manifest_id)
-        {
-            $stmt = $this->connection->prepare("CALL pDeleteManifest(?)");
-            $stmt->bind_param("i", $manifest_id);
+        public function searchManifest($searchField){
+            $stmt = $this->connection->prepare("CALL pSearchManifest(?)");
+            $stmt->bind_param("s", $searchField);
             $stmt->execute();
-            $result = $stmt->affected_rows;
-            if ($result == -1) {
-                $this->loggger->logError("There was an error deleting a manifest: " . $this->connection->error);
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->logger->logError("There was an error searching a manifest: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
             return $result;
+        }
+
+        public function insertFile($file,$abstract,$researchId){
+            if($file != null) {
+                $name = $file["name"];
+                $type = explode(".", $name)[1];
+                $size = $file["size"];
+                $url = "/publicFiles/" . $name;
+                $checksum = "";
+                $stmt = $this->connection->prepare("CALL pInsertFile(?,?,?,?,?,?,?)");
+                $stmt->bind_param("sssissi", $name, $type, $abstract, $size, $url, $checksum, $researchId);
+                $stmt->execute();
+                $result = $stmt->affected_rows;
+                if ($result == -1) {
+                    $this->logger->logError("There was an error inserting a file: " . $this->connection->error);
+                    return $result;
+                }
+                $stmt->close();
+                return $result;
+            }
+            else{
+                $this->logger->logError("There was an error inserting a file, the file was null");
+                return -1;
+            }
         }
 
         public function insertManifest($standardsVersion, $comment, $userId, $title)
         {
+            $this->logger->logInfo("Calling insert manifest, parameters are $standardsVersion $comment $userId $title");
             $stmt = $this->connection->prepare("CALL pInsertManifest(?,?,?,?)");
             $stmt->bind_param("ssis", $standardsVersion, $comment, $userId, $title);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a manifest: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a manifest: " . $this->connection->error);
                 return null;
+            }
+            else{
+                $this->logger->logInfo("Successfully inserted manifest");
             }
             $stmt->close();
             return $result;
@@ -128,7 +112,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a research object: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a research object: " . $this->connection->error);
                 return null;
             }
             $stmt->close();
@@ -142,8 +126,45 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->affected_rows;
             if ($stmt->affected_rows == -1) {
-                $this->loggger->logError("There was an error inserting a researcher: " . $this->connection->error);
+                $this->logger->logError("There was an error inserting a researcher: " . $this->connection->error);
                 return null;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function insertUser($username, $password)
+        {
+            $this->logger->logInfo("Calling insert user, the username is ".$username);
+            $hpass = password_hash($password, PASSWORD_BCRYPT);
+            $stmt = $this->connection->prepare("CALL pInsertUser(?,?)");
+            $stmt->bind_param("ss", $username, $hpass);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            if ($result == -1) {
+                $this->logger->logError("There was an error inserting a user: " . $this->connection->error);
+                return -1;
+            }
+            else{
+                $this->logger->logInfo("Successfully created a new user");
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function deleteManifest($manifest_id)
+        {
+            $this->logger->logInfo("Calling delete manifest, the manifest id is ".$manifest_id);
+            $stmt = $this->connection->prepare("CALL pDeleteManifest(?)");
+            $stmt->bind_param("i", $manifest_id);
+            $stmt->execute();
+            $result = $stmt->affected_rows;
+            if ($result == -1) {
+                $this->logger->logError("There was an error deleting a manifest: " . $this->connection->error);
+                return null;
+            }
+            else{
+                $this->logger->logInfo("Successfully deleted manifest");
             }
             $stmt->close();
             return $result;

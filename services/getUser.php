@@ -7,10 +7,12 @@ $dataAccess = new \DataAccess\DataAccess();
 
 $result = $dataAccess->getUserByUserName($username);
 $row = $result->fetch_assoc();
-if(password_verify($password, $row["hashed_password"])){
-		echo json_encode(["success" => true, "msg"=>"Login successfully!"]);
-}
-else{
-		echo json_encode(["success" => false, "msg"=>"Pleasr try again!"]);
+if (password_verify($password, $row["hashed_password"])) {
+    echo json_encode(["success" => true, "msg" => "Login successfully!"]);
+    $_SESSION["user_id"] = $row["user_id"];
+    $_SESSION["username"]= $row["username"];
+
+} else {
+    echo json_encode(["success" => false, "msg" => "Please try again!"]);
 }
 ?>

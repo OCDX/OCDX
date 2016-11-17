@@ -15,6 +15,7 @@ class DataAccessTest extends TestCase
     {
         $this->connection = new DataAccess();
         $this->assertEquals($this->connection->connection->ping(), true);
+        $this->connection->close();
     }
 
     public function testInsertUser()
@@ -22,6 +23,7 @@ class DataAccessTest extends TestCase
         $this->connection = new DataAccess();
         $rand = rand();
         $this->assertEquals(1, $this->connection->insertUser('automatedTestInDataAccess' . $rand, $rand));
+        $this->connection->close();
     }
 
     public function testGetUserByUserName()
@@ -29,6 +31,7 @@ class DataAccessTest extends TestCase
         $this->connection = new DataAccess();
         $result = $this->connection->getUserByUserName('automated test');
         $this->assertEquals('automated test', $result->fetch_assoc()["username"]);
+        $this->connection->close();
     }
 
     public function testGetUserByUserNameIncorrectUserName()
@@ -36,27 +39,16 @@ class DataAccessTest extends TestCase
         $this->connection = new DataAccess();
         $result = $this->connection->getUserByUserName('This is an nonexistant username');
         $this->assertEquals(0, $result->num_rows);
+        $this->connection->close();
     }
 
-    public function testGetFileByFileName()
-    {
-        $this->connection = new DataAccess();
-        $result = $this->connection->searchByFilename('filename.json');
-        $this->assertGreaterThan(0, $result->num_rows);
-    }
-
-    public function testGetFileByFileType()
-    {
-        $this->connection = new DataAccess();
-        $result = $this->connection->searchByFiletype('json');
-        $this->assertGreaterThan(0, $result->num_rows);
-    }
 
     public function testGetFileByUsername()
     {
         $this->connection = new DataAccess();
         $result = $this->connection->searchByUsername('timthom');
         $this->assertGreaterThan(0, $result->num_rows);
+        $this->connection->close();
     }
 
     public function testInsertingAndDeletingAManifest()
@@ -66,6 +58,7 @@ class DataAccessTest extends TestCase
         $this->assertNotEquals(null, $result);
         $result = $this->connection->deleteManifest($result->fetch_assoc()['id']);
         $this->assertNotEquals(null, $result);
+        $this->connection->close();
     }
 
     public function testInsertResearchObject()
@@ -73,12 +66,45 @@ class DataAccessTest extends TestCase
         $this->connection = new DataAccess();
         $result = $this->connection->insertResearchObject('automatedTest', 'automatedTest', 0, 'automatedTest', 'automatedTest', 'automatedTest', 'automatedTest', 'automatedTest', 41);
         $this->assertNotEquals(null, $result);
+        $this->connection->close();
     }
 
     public function testInsertResearcher(){
         $this->connection = new DataAccess();
         $result = $this->connection->insertResearcher('automatedTest', 'automatedTest','automatedTest','automatedTest');
         $this->assertNotEquals(null, $result);
+        $this->connection->close();
+    }
+
+    public function testInsertFile(){
+        $_FILES = array(
+            'test' => array(
+                'name' => 'FileAccessTestFile.txt',
+                'type' => 'text/plain',
+                'size' => 58,
+                'tmp_name' => 'FileAccessTestFile.txt',
+                'error' => 0
+            )
+        );
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertFile($_FILES["test"],"This is an automated test",1);
+        $this->assertGreaterThan(-1, $result);
+        $this->connection->close();
+
+    }
+
+    public function testSearchManifest(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->searchManifest('manifest');
+        $this->assertNotEquals(null, $result);
+        $this->connection->close();
+    }
+
+    public function testInsertFileEmptyFile(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->insertFile(null,"This is an automated test",1);
+        $this->assertEquals(-1, $result);
+        $this->connection->close();
     }
 
 }
