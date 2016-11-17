@@ -23,6 +23,7 @@ namespace DataAccess {
 
         public function getUserByUserName($username)
         {
+            $this->logger->logInfo("Calling pGetUserByUserName, username is ".$username);
             $stmt = $this->connection->prepare("CALL pGetUserByUserName(?)");
             $stmt->bind_param("s", $username);
             $stmt->execute();
@@ -88,6 +89,7 @@ namespace DataAccess {
 
         public function insertManifest($standardsVersion, $comment, $userId, $title)
         {
+            $this->logger->logInfo("Calling insert manifest, parameters are $standardsVersion $comment $userId $title");
             $stmt = $this->connection->prepare("CALL pInsertManifest(?,?,?,?)");
             $stmt->bind_param("ssis", $standardsVersion, $comment, $userId, $title);
             $stmt->execute();
@@ -95,6 +97,9 @@ namespace DataAccess {
             if ($stmt->affected_rows == -1) {
                 $this->logger->logError("There was an error inserting a manifest: " . $this->connection->error);
                 return null;
+            }
+            else{
+                $this->logger->logInfo("Successfully inserted manifest");
             }
             $stmt->close();
             return $result;
@@ -130,15 +135,18 @@ namespace DataAccess {
 
         public function insertUser($username, $password)
         {
+            $this->logger->logInfo("Calling insert user, the username is ".$username);
             $hpass = password_hash($password, PASSWORD_BCRYPT);
             $stmt = $this->connection->prepare("CALL pInsertUser(?,?)");
             $stmt->bind_param("ss", $username, $hpass);
             $stmt->execute();
             $result = $stmt->affected_rows;
-
             if ($result == -1) {
                 $this->logger->logError("There was an error inserting a user: " . $this->connection->error);
                 return -1;
+            }
+            else{
+                $this->logger->logInfo("Successfully created a new user");
             }
             $stmt->close();
             return $result;
@@ -146,6 +154,7 @@ namespace DataAccess {
 
         public function deleteManifest($manifest_id)
         {
+            $this->logger->logInfo("Calling delete manifest, the manifest id is ".$manifest_id);
             $stmt = $this->connection->prepare("CALL pDeleteManifest(?)");
             $stmt->bind_param("i", $manifest_id);
             $stmt->execute();
@@ -153,6 +162,9 @@ namespace DataAccess {
             if ($result == -1) {
                 $this->logger->logError("There was an error deleting a manifest: " . $this->connection->error);
                 return null;
+            }
+            else{
+                $this->logger->logInfo("Successfully deleted manifest");
             }
             $stmt->close();
             return $result;
