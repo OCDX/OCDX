@@ -1,7 +1,16 @@
 <?php
 
 namespace DataAccess {
-    include_once('../Framework/Logging/Logging.php');
+    if(isset($_SERVER['argv'])) {
+        if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
+            include_once "../Framework/Logging/Logging.php";
+        }else{
+            include_once "../Logging/Logging.php";
+        }
+    }
+    else{
+        include_once "../Logging/Logging.php";
+    }
 
     class DataAccess
     {
@@ -29,7 +38,7 @@ namespace DataAccess {
             $stmt->execute();
             $result = $stmt->get_result();
             if (!$result) {
-                $this->logger->logError("There was an error retreiving a user: " . $this->connection->error);
+                $this->logger->logError("There was an error retrieving a user: " . $this->connection->error);
                 return null;
             }
             $stmt->close();

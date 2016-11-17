@@ -9,17 +9,7 @@ namespace Framework {
 
         /** Logger is instantiated in the constructor. */
         public function __construct() {
-            if(isset($_SERVER['argv'])) {
-                if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
-                    \Logger::configure('../Framework/Logging/config.xml');
-                }
-                else{
-                    \Logger::configure('../Logging/config.xml');
-                }
-            }
-            else{
-                 \Logger::configure('../Logging/config.xml');
-            }
+            \Logger::configure('../Framework/Logging/config.xml');
             $this->log = \Logger::getLogger(__CLASS__);
         }
 
