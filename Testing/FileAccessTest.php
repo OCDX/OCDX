@@ -29,4 +29,9 @@ class FileAccessTest extends TestCase {
         $this->assertNotEquals($fileAccess->getFile("FileAccessTestFile.txt"), false);
     }
 
+    public function testUploadEmptyFile(){
+        $fileAccess = new FileAccess();
+        $this->assertEquals($fileAccess->uploadFile(null), false);
+    }
+
 }
