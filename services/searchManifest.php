@@ -9,7 +9,10 @@ else {
     $dataAccess = new \DataAccess\DataAccess();
 
     $result = $dataAccess->searchManifest($searchField);
-
-    echo json_encode($result->fetch_assoc());
+    $array = [];
+    while($row = $result->fetch_object()){
+        array_push($array,$row);
+    }
+    echo json_encode($array);
 }
 ?>
