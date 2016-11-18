@@ -1,3 +1,11 @@
+<?php
+  
+  session_start();
+  if(isset($_SESSION["user_id"]) || isset($_SESSION["username"]))
+    header("Location: ./index.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,76 +45,52 @@
 
 <body id="page-top">
 
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-        </button>
-        <a class="navbar-brand page-scroll" href="#page-top">OCDX Group1</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Explore Data</a>
-          </li>
-          <li>
-            <a href="#">Publish Data</a>
-          </li>                    
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
+  <?php include_once './include/header.php'; ?>
 
   <header>
     <div class="header-content">
       <div class="header-content-inner">
-        <h1 id="homeHeading">SIGN UP</h1>
+        <h1 id="homeHeading">LOGIN</h1>
         <hr>
         <p>1,751,009,072 <small>bytes of data today</small></p>
       </div>
     </div>
   </header>
+
   <section class="no-padding" style="margin:50px auto" id="register">
     <div class="container">
-      <div class="row">
+
+      <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
           <div id="alert">
-          </div>
-          <form method="post" role="form" id="register_form">
-            <h2>Please Sign Up <small>It's free and always will be.</small></h2>
-            <hr class="colorgraph">
-            <div class="form-group">
-              <input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="1" required>
-            </div>
-            <div class="form-group">
-              <input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
-            </div>
-
-            <hr class="colorgraph">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <input type="submit" value="Register" onclick="javascript:void(0);" id="submitbutton" class="btn btn-primary btn-block btn-lg" tabindex="3">
+          </div>          
+          <form method="post" role="form" id="login_form">
+            <fieldset>
+              <h2>Please Login</h2>
+              <hr class="colorgraph">
+              <div class="form-group">
+                <input type="text" name="username" class="form-control input-lg" placeholder="Username" required>
               </div>
-              <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>
-            </div>
+              <div class="form-group">
+                <input type="password" name="password"= class="form-control input-lg" placeholder="Password" required>
+              </div>
+              <hr class="colorgraph">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <input type="submit" value="Login" onclick="javascript:void(0);" id="submitbutton" class="btn btn-success btn-block btn-lg" tabindex="3">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <a href="./register.php" class="btn btn-lg btn-primary btn-block">Register</a>
+                </div>
+              </div>
+            </fieldset>
           </form>
         </div>
       </div>
-
     </div>
   </section>
+
+
 
 
   <!-- jQuery -->
@@ -124,7 +108,7 @@
   <script src="js/creative.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $("#register_form").submit(function(event) {
+      $("#login_form").submit(function(event) {
         var $form = $(this);
         event.preventDefault();
 
@@ -132,8 +116,8 @@
         $("#submitbutton").prop('disabled', true);
         $.ajax({
           type: "POST",
-          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/signup.php",
-          //url: "http://localhost/OCDXGroupProject/services/signup.php",
+          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/getUser.php",
+          //url: "http://localhost/OCDXGroupProject/services/getUser.php",
           dataType: 'json',
           data: $form.serializeArray(),
           success: function(response)
@@ -141,7 +125,13 @@
             if(response.success)
               {
               $('#alert').html('<div class="alert alert-success"><span class="fa fa-success"></span>'+response.msg+'</div>');
-              window.location.href= "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/login.html";
+              <?php
+                if(isset($_GET['redirect']))
+                  $url = 'http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/'.$_GET["redirect"].'.php';
+                else
+                  $url = 'http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/index.php';
+              ?>
+              window.location.href = "<?=$url ?>";
               }
             else
               {
