@@ -1,3 +1,10 @@
+<?php
+  
+  session_start();
+  if(!isset($_SESSION["user_id"]) && !isset($_SESSION["username"]))
+    header("Location: ./login.php?redirect=publish");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,38 +44,7 @@
 </head>
 
 <body id="page-top">
-
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-        </button>
-        <a class="navbar-brand page-scroll" href="#page-top">OCDX Group1</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Explore Data</a>
-          </li>
-          <li>
-            <a href="#">Publish Data</a>
-          </li>                    
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
+  <?php include_once './include/header.php'; ?>
 
   <header>
     <div class="header-content">
@@ -100,7 +76,7 @@
           <div class="row">
             <div class="col-md-12">
               <img class="pull-left" src="https://kaggle2.blob.core.windows.net/avatars/thumbnails/default-thumb.png" style="width:50px; margin-right:10px;">
-              <h3>By <small>John Doe</small></h3>
+              <h3>By <small><?=$_SESSION['username'] ?></small></h3>
             </div>
           </div>
         </div>
@@ -116,7 +92,7 @@
           <div class="row">
             <div class="col-md-7">
               <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3">https://example.com/users/</span>
+                <span class="input-group-addon" id="basic-addon3"><?=$_SERVER['SERVER_NAME'] ?>/<?=$_SESSION['username'] ?>/</span>
                 <input type="text" class="form-control">
               </div>
             </div>

@@ -36,77 +36,37 @@
 </head>
 
 <body id="page-top">
-
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-        </button>
-        <a class="navbar-brand page-scroll" href="#page-top">OCDX Group1</a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Explore Data</a>
-          </li>
-          <li>
-            <a href="#">Publish Data</a>
-          </li>                    
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
+  <?php include_once './include/header.php'; ?>
 
   <header>
     <div class="header-content">
       <div class="header-content-inner">
         <h1 id="homeHeading">Explore Datasets</h1>
-        <hr>
         <p>1,751,009,072 <small>bytes of data today</small></p>
+        <hr>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <input type="text" class="form-control" placeholder="Search for datasets" id="search_keyword">
+            <br>
+            <button class="btn btn-primary btn-xl" id="search_button">SEARCH</button>
+          </div>
+        </div>
+        <hr>
       </div>
     </div>
   </header>
-  <section class="no-padding" style="margin:50px auto" id="search">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">         
-          <div class="input-group" id="adv-search">
-            <input type="text" class="form-control" placeholder="Search for datasets">
-            <div class="input-group-btn">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
+  <section class="no-padding text-center" id="status" style="display: none; padding:30px 0;">
+
   </section>
-  <section class="no-padding" id="result">
+  <section class="no-padding" id="result" style="display: none; margin-top:15px;">
     <div class="container">
       <hgroup>
         <h1>Search Results</h1>
         <h2 class="lead">
-          <strong class="text-danger">3</strong> results were found for the search for
-          <strong class="text-danger">Lorem</strong>
-        </h2>               
+          <strong class="text-danger"><span id="count_result">0</span></strong> results were found for the search for
+          <strong class="text-danger" id="keyword"></strong>
+        </h2>
       </hgroup>
-
       <section class="no-padding" style="margin: 20px 0;">
         <div calss="row">
           <div class="col-md-3">
@@ -189,54 +149,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9">
-            <article class="search-result row">
-              <div class="col-xs-12 col-sm-12 col-md-10">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>        
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                  <li><i class="glyphicon glyphicon-calendar"></i> <span>02/15/2014</span></li>
-                  <li><i class="glyphicon glyphicon-time"></i> <span>4:28 pm</span></li>
-                  <li><i class="glyphicon glyphicon-tags"></i> <span>People</span></li>
-                  <li><i class="glyphicon glyphicon-user"></i> <span>John Doe</span></li>
-                </ul>
-              </div>
-              <span class="clearfix border"></span>
-            </article>
-
-            <article class="search-result row">
-              <div class="col-xs-12 col-sm-12 col-md-10">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                  <li><i class="glyphicon glyphicon-calendar"></i> <span>02/13/2014</span></li>
-                  <li><i class="glyphicon glyphicon-time"></i> <span>8:32 pm</span></li>
-                  <li><i class="glyphicon glyphicon-tags"></i> <span>Food</span></li>
-                  <li><i class="glyphicon glyphicon-user"></i> <span>John Doe</span></li>
-                </ul>
-              </div>
-              <span class="clearfix border"></span>
-            </article>
-
-            <article class="search-result row">
-              <div class="col-xs-12 col-sm-12 col-md-10">
-                <h3><a href="#" title="">Voluptatem, exercitationem, suscipit, distinctio</a></h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, exercitationem, suscipit, distinctio, qui sapiente aspernatur molestiae non corporis magni sit sequi iusto debitis delectus doloremque.</p>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                  <li><i class="glyphicon glyphicon-calendar"></i> <span>01/11/2014</span></li>
-                  <li><i class="glyphicon glyphicon-time"></i> <span>10:13 am</span></li>
-                  <li><i class="glyphicon glyphicon-tags"></i> <span>Sport</span></li>
-                  <li><i class="glyphicon glyphicon-user"></i> <span>John Doe</span></li>
-                </ul>
-              </div>
-              <span class="clearfix border"></span>
-            </article>      
+          <div class="col-md-9" id="search_list">
           </div>
         </div>
       </section>
@@ -259,6 +172,79 @@
 
   <!-- Theme JavaScript -->
   <script src="js/creative.min.js"></script>
+
+  <script type="text/javascript">
+    function scroll(id)
+      {
+      id = id.replace("link", "");
+      $('html,body').animate({
+        scrollTop: $("#"+id).offset().top},
+        'slow');
+      }
+
+    $(document).ready(function() {
+      $("#search_button").click(function(event) {
+        var keyword = $("#search_keyword").val();
+        var count = 0;
+        if(keyword.length > 0)
+          {
+          $("#status").fadeIn('fast', function() {
+            $(this).html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>');
+            scroll("status");
+          });
+
+          $.ajax({
+            type: 'POST',
+            url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php",
+            //url: "http://localhost/OCDXGroupProject/services/searchManifest.php",
+            dataType: 'json',
+            data: { searchField : keyword },
+            success: function (res)
+              {
+              $("#search_list").html('');
+              $.each(res, function(index, val) {
+                count++;
+                var date = val.date_created.split(" ");
+                var list = '\
+                  <article class="search-result row">\
+                    <div class="col-xs-12 col-sm-12 col-md-10">\
+                      <h3><a href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
+                      <p>'+val.description+'</p>\
+                    </div>\
+                    <div class="col-xs-12 col-sm-12 col-md-2">\
+                      <ul class="meta-search">\
+                        <li><i class="glyphicon glyphicon-calendar"></i> <span>'+date[0]+'</span></li>\
+                        <li><i class="glyphicon glyphicon-time"></i> <span>'+date[1]+'</span></li>\
+                        <li><i class="glyphicon glyphicon-user"></i> <span>'+val.username+'</span></li>\
+                      </ul>\
+                    </div>\
+                    <span class="clearfix border"></span>\
+                  </article>';
+                $("#search_list").append(list);
+              });
+
+              $("#keyword").text(keyword);
+              $("#count_result").text(count);
+
+              $("#status").fadeOut('fast', function() {
+                $("#result").fadeIn('fast');
+                scroll("result");
+              });
+
+              console.log(res);
+              }
+          });
+          }
+        else
+          {
+          $("#status").fadeIn('fast', function() {
+            $(this).html('<h2 class="text-danger">Error: Keyword is required!</h2>');
+            scroll("status");
+          });
+          }
+      });
+    });
+  </script>
 
 </body>
 

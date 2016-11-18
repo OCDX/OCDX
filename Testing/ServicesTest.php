@@ -18,24 +18,76 @@ use PHPUnit\Framework\TestCase;
 class ServicesTest extends TestCase {
 
     public function testSuccessfulLogin() {
-        $_GET = array(
+        $_POST = array(
             'username' => 'automated test',
             'password' => '123456'
         );
         require '../services/getUser.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
-        unset($_GET);
+        $this->expectOutputString("{\"success\":true,\"msg\":\"Login successfully!\"}");
+        unset($_POST);
     }
 
+    public function testSignupOfUserThatAlreadyExists(){
+        $_POST = array(
+            'username' => 'automated test',
+            'password' => '123456'
+        );
+        require '../services/signup.php';
+        $this->expectOutputString("{\"success\":false,\"msg\":\"automated test is already taken.\"}");
+        unset($_POST);
+    }
     public function testSuccessfulSignup() {
         $rand = rand();
-        $_GET = array(
+        $_POST = array(
             'username' => 'automatedTestFromServices' . $rand,
             'password' => $rand
         );
         require '../services/signup.php';
-        $this->expectOutputString("{\"success\":\"true\"}");
-        unset($_GET);
+        $this->expectOutputString("{\"success\":true,\"msg\":\"automatedTestFromServices" . $rand. " is created.\"}");
+        unset($_POST);
     }
+
+    public function testGetUserByUsername(){
+        $_POST = array(
+            'username' => 'dummyuser'
+        );
+        require '../services/searchByUsername.php';
+        unset($_POST);
+    }
+
+    public function testSearchManifest(){
+        $_POST = array(
+            'searchField' => 'manifest'
+        );
+        require '../services/searchManifest.php';
+        $this->hasOutput();
+        unset($_POST);
+    }
+
+    public function testSearchManifestEmptyPOST(){
+        require '../services/searchManifest.php';
+        $this->expectOutputString(json_encode(["success"=>false, "msg" => "There was no search field"]));
+    }
+
+    public function testInsertManifest(){
+        $_SESSION["user_id"] = 1;
+        $_FILES = array(
+            'test' => array(
+                'name' => 'FileAccessTestFile.txt',
+                'type' => 'text/plain',
+                'size' => 58,
+                'tmp_name' => 'FileAccessTestFile.txt',
+                'error' => 0
+            )
+        );
+        $_POST["standards"] = "automatedTest";
+        $_POST["comment"] = "automatedTest";
+        $_POST["title"] = "automatedTest";
+        require '../services/insertManifest.php';
+        $this->expectOutputString(json_encode(["success"=>true]));
+
+        session_destroy();
+    }
+
 
 }
