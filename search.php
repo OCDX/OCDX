@@ -65,7 +65,7 @@
         <h2 class="lead">
           <strong class="text-danger"><span id="count_result">0</span></strong> results were found for the search for
           <strong class="text-danger" id="keyword"></strong>
-        </h2>               
+        </h2>
       </hgroup>
       <section class="no-padding" style="margin: 20px 0;">
         <div calss="row">

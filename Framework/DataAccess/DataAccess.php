@@ -5,11 +5,11 @@ namespace DataAccess {
         if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
             include_once "../Framework/Logging/Logging.php";
         }else{
-            include_once "../Logging/Logging.php";
+            include_once "../Framework/Logging/Logging.php";
         }
     }
     else{
-        include_once "../Logging/Logging.php";
+        include_once "../Framework/Logging/Logging.php";
     }
 
     class DataAccess
