@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @author Brandon
  */
 class ServicesTest extends TestCase {
-
+/*
     public function testSuccessfulLogin() {
         $_POST = array(
             'username' => 'automated test',
@@ -26,7 +26,7 @@ class ServicesTest extends TestCase {
         $this->expectOutputString("{\"success\":true,\"msg\":\"Login successfully!\"}");
         unset($_POST);
     }
-
+*/
     public function testSignupOfUserThatAlreadyExists(){
         $_POST = array(
             'username' => 'automated test',
@@ -70,6 +70,11 @@ class ServicesTest extends TestCase {
     }
 
     public function testInsertManifest(){
+        if(!isset($_SESSION)) {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+        }
         $_SESSION["user_id"] = 1;
         $_FILES = array(
             'test' => array(
@@ -95,6 +100,11 @@ class ServicesTest extends TestCase {
         unset($_POST);
         $this->expectOutputString(json_encode(["standards_versions"=>"ocdxManifest schema v.1","date_created"=>"2016-10-31 03:26:02","comment"=>"The very first manifest.","user_id"=>1,"name"=>"filename2.json","format"=>"json","abstract"=>"Brief overview of file.","size"=>1000,"url"=>"http://url.com/2","checksum"=>"0","created_on"=>"2016-10-31 03:10:10"]));
 
+    }
+
+    public function testViewManifestEmptyPost(){
+        require '../services/viewManifest.php';
+        $this->expectOutputString(json_encode(["success"=>false]));
     }
 
 

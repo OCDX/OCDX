@@ -7,4 +7,8 @@ if ($manifestId != '') {
     $result = $dataAccess->getManifestByManifestId($manifestId);
     echo json_encode($row = $result->fetch_object());
 }
+else
+{
+    echo json_encode(["success"=>false]);
+}
 ?>
