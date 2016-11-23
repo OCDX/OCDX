@@ -45,6 +45,20 @@ namespace DataAccess {
             return $result;
         }
 
+        public function getManifestByManifestId($manifestId){
+            $this->logger->logInfo("Calling pSelectManifestAndFiles, manifest id is ".$manifestId);
+            $stmt = $this->connection->prepare("CALL pSelectManifestAndFiles(?)");
+            $stmt->bind_param("i", $manifestId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if (!$result) {
+                $this->logger->logError("There was an error retrieving a manifest by id : " . $this->connection->error);
+                return null;
+            }
+            $stmt->close();
+            return $result;
+        }
+
         public function searchByUsername($username)
         {
             $stmt = $this->connection->prepare("CALL pSearchByUsername(?)");

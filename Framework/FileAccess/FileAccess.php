@@ -51,7 +51,7 @@ namespace FileAccess {
         public function getFile($file) {
             $targetFile = $this->baseDirectory . $file;
             if (file_exists($targetFile)) {
-                return file_get_contents($targetFile);
+                return $targetFile;
             }
             return "";
         }
