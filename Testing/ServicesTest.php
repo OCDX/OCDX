@@ -70,11 +70,6 @@ class ServicesTest extends TestCase {
     }
 
     public function testInsertManifest(){
-        if(!isset($_SESSION)) {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-        }
         $_SESSION["user_id"] = 1;
         $_FILES = array(
             'test' => array(
@@ -90,8 +85,6 @@ class ServicesTest extends TestCase {
         $_POST["title"] = "automatedTest";
         require '../services/insertManifest.php';
         $this->expectOutputString(json_encode(["success"=>true]));
-
-        session_destroy();
     }
 
     public function testViewManifest(){
