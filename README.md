@@ -8,4 +8,4 @@ This project is a centralized system for the storing and sharing of data and scr
 2. Benjamin Brown
 3. Kienan DeLaney
 4. Daniel Darnold
-5. Chalermpon Thongmotai(Pao)
+5. Chalermpon Thongmotai

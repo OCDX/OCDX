@@ -42,16 +42,24 @@
     <div class="header-content">
       <div class="header-content-inner">
         <h1 id="homeHeading">Explore Datasets</h1>
-        <p>1,751,009,072 <small>bytes of data today</small></p>
+        <p style="margin:0 auto;">1,751,009,072 <small>bytes of data today</small></p>
         <hr>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <input type="text" class="form-control" placeholder="Search for datasets" id="search_keyword">
             <br>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-info active">
+                <input type="radio" name="options" value="keyword" checked> Keyword
+              </label>
+              <label class="btn btn-info">
+                <input type="radio" name="options" value="username" > Username
+              </label>
+            </div>            
+            <hr>
             <button class="btn btn-primary btn-xl" id="search_button">SEARCH</button>
           </div>
         </div>
-        <hr>
       </div>
     </div>
   </header>
@@ -60,104 +68,27 @@
   </section>
   <section class="no-padding" id="result" style="display: none; margin-top:15px;">
     <div class="container">
-      <hgroup>
-        <h1>Search Results</h1>
-        <h2 class="lead">
-          <strong class="text-danger"><span id="count_result">0</span></strong> results were found for the search for
-          <strong class="text-danger" id="keyword"></strong>
-        </h2>
-      </hgroup>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <hgroup>
+            <h1>Search Results</h1>
+            <h2 class="lead">
+              <strong class="text-danger"><span id="count_result">0</span></strong> results were found for the search for
+              <strong class="text-danger" id="keyword"></strong>
+            </h2>               
+          </hgroup>
+        </div>
+      </div>
       <section class="no-padding" style="margin: 20px 0;">
         <div calss="row">
-          <div class="col-md-3">
-            <div id="accordion" class="panel panel-primary behclick-panel" style="border:solid 1px lightgray;">
-              <div class="panel-heading">
-                <h3 class="panel-title">Search Filter</h3>
-              </div>
-              <div class="panel-body" >
-                <div class="panel-heading " >
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse0">
-                      <i class="indicator fa fa-caret-down" aria-hidden="true"></i> Tag
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapse0" class="panel-collapse collapse in" >
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Sciene
-                        </label>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="checkbox" >
-                        <label>
-                          <input type="checkbox" value="">
-                          Education
-                        </label>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="checkbox"  >
-                        <label>
-                          <input type="checkbox" value="">
-                          Food
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="panel-heading " >
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1">
-                      <i class="indicator fa fa-caret-down" aria-hidden="true"></i> Format
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse in" >
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox" value="">
-                          Html
-                        </label>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="checkbox" >
-                        <label>
-                          <input type="checkbox" value="">
-                          Text
-                        </label>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="checkbox"  >
-                        <label>
-                          <input type="checkbox" value="">
-                          PHP
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-9" id="search_list">
+          <div class="col-md-8 col-md-offset-2" id="search_list">
           </div>
         </div>
       </section>
     </div>
   </section>
 
-
-
+  <?php include_once './include/footer.php'; ?>
 
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -174,7 +105,7 @@
   <script src="js/creative.min.js"></script>
 
   <script type="text/javascript">
-    function scroll(id)
+    function scroll_to(id)
       {
       id = id.replace("link", "");
       $('html,body').animate({
@@ -190,25 +121,36 @@
           {
           $("#status").fadeIn('fast', function() {
             $(this).html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>');
-            scroll("status");
+            scroll_to("status");
           });
+          var search_by = $('input[name=options]:checked').val();
+          var url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php";
+          //url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
+
+          if(search_by === "username")
+            {
+            url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchByUsername.php";
+            //url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
+            }
+
+          console.log(search_by);
 
           $.ajax({
             type: 'POST',
-            url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php",
-            //url: "http://localhost/OCDXGroupProject/services/searchManifest.php",
+            url: url,
             dataType: 'json',
-            data: { searchField : keyword },
+            data: { searchField : keyword, username : keyword },
             success: function (res)
               {
               $("#search_list").html('');
+              //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $.each(res, function(index, val) {
                 count++;
                 var date = val.date_created.split(" ");
                 var list = '\
                   <article class="search-result row">\
                     <div class="col-xs-12 col-sm-12 col-md-10">\
-                      <h3><a href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
+                      <h3><a target="_blank" href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
                       <p>'+val.description+'</p>\
                     </div>\
                     <div class="col-xs-12 col-sm-12 col-md-2">\
@@ -228,10 +170,9 @@
 
               $("#status").fadeOut('fast', function() {
                 $("#result").fadeIn('fast');
-                scroll("result");
+                scroll_to("result");
               });
 
-              console.log(res);
               }
           });
           }
@@ -239,7 +180,7 @@
           {
           $("#status").fadeIn('fast', function() {
             $(this).html('<h2 class="text-danger">Error: Keyword is required!</h2>');
-            scroll("status");
+            scroll_to("status");
           });
           }
       });

@@ -87,6 +87,7 @@
     </div>
   </section>
 
+  <?php include_once './include/footer.php'; ?>
 
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>

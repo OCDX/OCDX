@@ -69,13 +69,9 @@
                 <input class="form-control" type="text" placeholder="Include a brief data overview for the subtitle">
               </div>
             </div>
-            <div class="col-md-4">
-              <i class="fa fa-photo fa-3x fa-pull-right fa-border"></i>
-            </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <img class="pull-left" src="https://kaggle2.blob.core.windows.net/avatars/thumbnails/default-thumb.png" style="width:50px; margin-right:10px;">
               <h3>By <small><?=$_SESSION['username'] ?></small></h3>
             </div>
           </div>
@@ -84,23 +80,6 @@
     </div> <!-- /container -->
   </section>
 
-  <section class="no-padding" style="margin:20px auto" id="url">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Choose a Permanent URL</strong></div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-7">
-              <div class="input-group">
-                <span class="input-group-addon" id="basic-addon3"><?=$_SERVER['SERVER_NAME'] ?>/<?=$_SESSION['username'] ?>/</span>
-                <input type="text" class="form-control">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
 
   <section class="no-padding" style="margin:20px auto" id="description">
     <div class="container">
@@ -109,7 +88,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-md-12">
-              <div id="descriptionInput">Give a detailed description about your dataset.</div>
+              <div id="descriptionInput"></div>
             </div>
           </div>
         </div>
@@ -156,6 +135,7 @@
     </center>
   </section>
 
+  <?php include_once './include/footer.php'; ?>
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>
 

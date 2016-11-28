@@ -103,7 +103,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">POPULAR DATASETS</h2>
+          <h2 class="section-heading">RECENT DATASETS</h2>
           <hr class="primary">
         </div>
       </div>
@@ -180,6 +180,7 @@
     </div>
   </section>
 
+  <?php include_once './include/footer.php'; ?>
 
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>

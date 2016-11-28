@@ -10,13 +10,12 @@ namespace FileAccess {
     if(isset($_SERVER['argv'])) {
         if (strpos($_SERVER['argv'][0], 'phpunit') !== FALSE) {
             include_once "../Framework/Logging/Logging.php";
-        }
-        else{
-            include_once "../Logging/Logging.php";
+        }else{
+            include_once "../Framework/Logging/Logging.php";
         }
     }
     else{
-        include_once "../Logging/Logging.php";
+        include_once "../Framework/Logging/Logging.php";
     }
 
     class FileAccess {
@@ -51,7 +50,7 @@ namespace FileAccess {
         public function getFile($file) {
             $targetFile = $this->baseDirectory . $file;
             if (file_exists($targetFile)) {
-                return file_get_contents($targetFile);
+                return $targetFile;
             }
             return "";
         }
