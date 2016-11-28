@@ -40,70 +40,41 @@
 
   <?php include_once './include/header.php'; ?>
 
+
   <header style="color:#444;">
     <div class="header-content">
       <div class="container">
         <div class="row">
           <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
             <div class="well profile">
-              <div class="col-md-12">
-                <h3>
-                  Lorem Ipsum Title<br>
-                  <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                </h3>
-                <br>
-                <p>
-                  <strong>By</strong>
-                  <br>
-                  John Doe - <small>last updated 4 days ago</small>
-                </p>
-                <span class="tags">html5</span> 
-                <span class="tags">css3</span>
-                <span class="tags">jquery</span>
-                <span class="tags">bootstrap3</span>
-                <hr>
-                <figure>
-                  <figcaption class="ratings">
-                    <p>Ratings
-                      <a href="#"><span class="fa fa-star"></span></a>
-                      <a href="#"><span class="fa fa-star"></span></a>
-                      <a href="#"><span class="fa fa-star"></span></a>
-                      <a href="#"><span class="fa fa-star"></span></a>
-                      <a href="#"><span class="fa fa-star-o"></span></a> 
-                    </p>
-                  </figcaption>
-                </figure>
-              </div>             
-              <div class="col-md-12 divider text-center">
-                <div class="col-xs-12 col-sm-4 emphasis">
-                  <h2><strong> 20,7K </strong></h2>                    
-                  <p><small>Views</small></p>
-                  <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+              <div class="col-md-12" id="loading">
+                <h3>Loading data... Please wait.</h3>
+                <div class="progress progress-striped active page-progress-bar">
+                  <div class="progress-bar" style="width: 100%;"></div>
                 </div>
-                  <div class="col-xs-12 col-sm-4 emphasis">
-                      <h2><strong>245</strong></h2>                    
-                      <p><small>Downloads</small></p>
-                      <button class="btn btn-info btn-block"><span class="fa fa-download"></span> Download </button>
-                  </div>
-                  <div class="col-xs-12 col-sm-4 emphasis">
-                      <h2><strong>43</strong></h2>                    
-                      <p><small>Shares</small></p>
-                      <div class="btn-group dropup btn-block">
-                        <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                          <span class="caret"></span>
-                          <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu text-left" role="menu">
-                          <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email </a></li>
-                          <li><a href="#"><span class="fa fa-list pull-right"></span> Add or remove from a list  </a></li>
-                          <li class="divider"></li>
-                          <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this user for spam</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>
-                        </ul>
-                      </div>
-                  </div>
+              </div>
+              <div class="content" style="display:none">
+                <div class="col-md-12">
+                  <h3>
+                    <span id="title"></span><br>
+                    <small id="comment"></small>
+                  </h3>
+                  <br>
+                  <p>
+                    <strong>By</strong>
+                    <br>
+                    <span id="username"></span>
+                    <br>
+                    <small id="date_created"></small>
+                  </p>
+                  <span class="tags" id="standards_versions"></span> 
+                  <hr>
+                </div>             
+                <div class="col-md-12 divider text-center">
+                  <h2><strong id="files_count"></strong></h2>
+                  <p><small>Files</small></p>
+                  <button class="btn btn-info btn-block" id="download_button"><span class="fa fa-download"></span> Download </button>
+                </div>
               </div>
             </div>                 
           </div>
@@ -111,109 +82,28 @@
       </div>    
     </div>    
   </header>
-
-  <section class="no-padding" style="margin:20px auto" id="description">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Description</strong></div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12">
-              <h2>Context</h2>
-              <br>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-              </p>
-
-              <h2>List</h2>
-              <ul>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Aliquam tincidunt mauris eu risus.</li>
-                <li>Vestibulum auctor dapibus neque.</li>
-                <li>Nunc dignissim risus id metus.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Aliquam tincidunt mauris eu risus.</li>
-                <li>Vestibulum auctor dapibus neque.</li>
-                <li>Nunc dignissim risus id metus.</li>                
-              </ul>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
-
-  <section class="no-padding" style="margin:20px auto" id="download">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Files</strong></div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-4">
-              <div class="list-group">
-                <a href="#" class="list-group-item active">Database.csv</a>
-                <a href="#" class="list-group-item">Database.sql</a>
-                <a href="#" class="list-group-item">Database-old.csv</a>
-                <a href="#" class="list-group-item">Database-new.csv</a>
+  <div class="content" style="display:none;">
+    <section class="no-padding" style="margin:20px auto" id="download">
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading"><strong>Files</strong></div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="list-group" id="files">
+                </div>
               </div>
-            </div>
-            <div class="col-md-8">
-              <h3>
-                Database.csv
-                <i class="fa fa-download fa-pull-right fa-border"></i>
-              </h3>
-              <br>
-              <strong>Full path:</strong> ../input/debate.csv<br>
-              <strong>File size:</strong> 366.29 KB <br>
-              <h3>Description:</h3>
-              <div class="well well-sm">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                <br>
-                <br>
-                <ul>
-                  <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                  <li>Aliquam tincidunt mauris eu risus.</li>
-                  <li>Vestibulum auctor dapibus neque.</li>
-                </ul>
+              <div class="col-md-8" id="files_content">
+
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
+      </div> <!-- /container -->
+    </section>
+  </div>
 
-  <section class="no-padding" style="margin:20px auto" id="version">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Description</strong></div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12">
-              <table class="table table-condensed table-striped">
-                <tr>
-                  <td><a href="#">Version 3</a></td>
-                  <td>7 days ago</td>
-                  <td>Added more file</td>
-                </tr>                
-                <tr>
-                  <td><a href="#">Version 2</a></td>
-                  <td>a month ago</td>
-                  <td>Added more file</td>
-                </tr>                
-                <tr>
-                  <td><a href="#">Version 1</a></td>
-                  <td>a month ago</td>
-                  <td>Initial release</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-  </section>    
+  <?php include_once './include/footer.php'; ?>
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -229,10 +119,80 @@
   <script src="js/creative.min.js"></script>
   <script src="summernote/summernote.min.js"></script>
   <script type="text/javascript">
+    function scroll_to(id)
+      {
+      id = id.replace("link", "");
+      $('html,body').animate({
+        scrollTop: $("#"+id).offset().top},
+        'slow');
+      }
+
+    function file_select(obj,id)
+      {
+      $(".files_bt").removeClass('active');
+      $(obj).addClass('active');
+
+      $(".files_list").hide();
+      $("#file_"+id).delay(400).fadeIn('slow');
+      }
+
     $(document).ready(function() {
-      $('#descriptionInput').summernote({
-        height: 200
+      
+      $("#download_button").click(function(event) {
+        scroll_to("download");
       });
+
+      $.ajax({
+        type: "POST",
+        url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/viewManifest.php",
+        //url: "http://localhost/OCDXGroupProject/services/viewManifest.php",
+        dataType: 'json',
+        data: {manifest : "<?=$_GET['id'] ?>"},
+        success: function(res)
+          {
+          if(res.success == false)
+            {
+            $("#loading").html("<h3>Id:<?=$_GET['id'] ?>, "+res.msg+"</h3>")
+            }
+          else
+            {
+            $("#loading").fadeOut('fast', function() {
+              $("#title").text(res.title);
+              $("#comment").text(res.comment);
+              $("#standards_versions").text(res.standards_versions);
+              $("#username").text(res.username);
+              $("#date_created").text(res.date_created);
+              $("#files_count").text(res.files.length);
+
+              $.each(res.files, function(index, val) {
+
+                $("#files").append('<a class="files_bt list-group-item" onclick="javascript:file_select(this,'+index+')">'+val.name+'</a>');
+                $("#files a:first-child").addClass('active');
+
+                $("#files_content").append('<div class="files_list" id="file_'+index+'" style="display:none">\
+                    <h3>\
+                    '+val.name+'\
+                    <i class="fa fa-download fa-pull-right fa-border text-danger"></i>\
+                  </h3>\
+                  <br>\
+                  <strong>File format:</strong> '+val.format+'<br>\
+                  <strong>File size:</strong> '+val.size+' KB <br>\
+                  <h3>Abstract:</h3>\
+                  <div class="well well-sm">\
+                  '+val.abstract+'\
+                  </div>\
+                </div>');
+
+                $(".files_list:first-child").fadeIn('fast');
+              });
+
+              $(".content").fadeIn('fast');
+            });
+            }
+          console.log(res);
+          }
+        });
+      
     });
   </script>
 
