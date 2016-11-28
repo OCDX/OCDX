@@ -5,15 +5,30 @@ $manifestId = isset($_POST["manifest"]) ? $_POST["manifest"] : '';
 if ($manifestId != '') {
     $dataAccess = new \DataAccess\DataAccess();
     $result = $dataAccess->getManifestByManifestId($manifestId);
-    if($row = $result->fetch_object() != null) {
-        echo json_encode($row = $result->fetch_object());
+    $files = [];
+    if ($result != null) {
+        $output = new stdClass();
+        $row = $result->fetch_assoc();
+        if ($row != null) {
+            $values = array_splice($row, 0, 4);
+            $output->standards_versions = $values["standards_versions"];
+            $output->date_created = $values["date_created"];
+            $output->comment = $values["comment"];
+            $output->user_id = $values["user_id"];
+            array_push($files, $row);
+            while ($row = $result->fetch_assoc()) {
+                array_splice($row, 0, 4);
+                array_push($files, $row);
+            }
+            $output->files = $files;
+            echo json_encode($output);
+        } else {
+            echo json_encode(["success" => false, "msg" => "The id does not exist"]);
+        }
+    } else {
+        echo json_encode(["success" => false, "msg" => "The id does not exist"]);
     }
-    else{
-        echo json_encode(["success"=>false,"msg"=> "The id does not exist"]);
-    }
-}
-else
-{
-    echo json_encode(["success"=>false]);
+} else {
+    echo json_encode(["success" => false]);
 }
 ?>
