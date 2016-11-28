@@ -91,7 +91,7 @@ class ServicesTest extends TestCase {
         $_POST["manifest"] = 42;
         require '../services/viewManifest.php';
         unset($_POST);
-        $this->expectOutputString(json_encode(["standards_versions"=>"ocdxManifest schema v.1","date_created"=>"2016-10-31 03:26:02","comment"=>"The very first manifest.","user_id"=>1,"files" => array(array("name"=>"filename2.json","format"=>"json","abstract"=>"Brief overview of file.","size"=>1000,"url"=>"http://url.com/2","checksum"=>"0","created_on"=>"2016-10-31 03:10:10"))]));
+        $this->expectOutputString(json_encode(["standards_versions"=>"ocdxManifest schema v.1","date_created"=>"2016-10-31 03:26:02","comment"=>"The very first manifest.","username"=>"timthom","title"=>"","files" => array(array("name"=>"filename2.json","format"=>"json","abstract"=>"Brief overview of file.","size"=>1000,"url"=>"http://url.com/2","checksum"=>"0","created_on"=>"2016-10-31 03:10:10"))]));
 
     }
 

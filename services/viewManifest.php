@@ -10,14 +10,15 @@ if ($manifestId != '') {
         $output = new stdClass();
         $row = $result->fetch_assoc();
         if ($row != null) {
-            $values = array_splice($row, 0, 4);
+            $values = array_splice($row, 0, 5);
             $output->standards_versions = $values["standards_versions"];
             $output->date_created = $values["date_created"];
             $output->comment = $values["comment"];
-            $output->user_id = $values["user_id"];
+            $output->username = $values["username"];
+            $output->title = $values["title"];
             array_push($files, $row);
             while ($row = $result->fetch_assoc()) {
-                array_splice($row, 0, 4);
+                array_splice($row, 0, 5);
                 array_push($files, $row);
             }
             $output->files = $files;
