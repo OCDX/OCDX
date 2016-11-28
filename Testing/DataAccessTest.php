@@ -107,4 +107,18 @@ class DataAccessTest extends TestCase
         $this->connection->close();
     }
 
+    public function testGetByteStat(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->getByteStat();
+        $this->assertNotEquals(null, $result);
+        $this->connection->close();
+    }
+
+    public function testGetRecentlyAddedManifests(){
+        $this->connection = new DataAccess();
+        $result = $this->connection->getRecentlyAddedManifests();
+        $this->assertNotEquals(null, $result);
+        $this->connection->close();
+    }
+
 }
