@@ -5,7 +5,12 @@ $manifestId = isset($_POST["manifest"]) ? $_POST["manifest"] : '';
 if ($manifestId != '') {
     $dataAccess = new \DataAccess\DataAccess();
     $result = $dataAccess->getManifestByManifestId($manifestId);
-    echo json_encode($row = $result->fetch_object());
+    if($row = $result->fetch_object() != null) {
+        echo json_encode($row = $result->fetch_object());
+    }
+    else{
+        echo json_encode(["success"=>false,"msg"=> "The id does not exist"]);
+    }
 }
 else
 {
