@@ -133,6 +133,8 @@
             url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
             }
 
+          console.log(search_by);
+
           $.ajax({
             type: 'POST',
             url: url,
@@ -140,8 +142,8 @@
             data: { searchField : keyword, username : keyword },
             success: function (res)
               {
+                      //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $("#search_list").html('');
-              //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $.each(res, function(index, val) {
                 count++;
                 var date = val.date_created.split(" ");
