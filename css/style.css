@@ -237,3 +237,11 @@ span.tags {
     margin-left: -10px;
     z-index: 10;
 }
+
+footer{
+    background-color: #333;
+    margin-top: 20px;
+    padding: 20px 0;
+    color: #eee;
+    text-align: center;
+}

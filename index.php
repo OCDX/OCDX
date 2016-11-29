@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,37 +36,8 @@
 
 <body id="page-top">
 
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
-        </button>
-        <a class="navbar-brand page-scroll" href="#page-top">OCDX Group1</a>
-      </div>
+  <?php include_once './include/header.php'; ?>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">Explore Data</a>
-          </li>
-          <li>
-            <a href="#">Publish Data</a>
-          </li>                    
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container-fluid -->
-  </nav>
 
   <header>
     <div class="header-content">
@@ -107,21 +77,21 @@
         <div class="col-md-4 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-search text-primary sr-icons"></i>
-            <h3>EXPLORE DATA</h3>
+            <h3><a href="./search.php">EXPLORE DATA</a></h3>
             <p class="text-muted">Search for Data and Preview data</p>
           </div>
         </div>
         <div class="col-md-4 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-download text-primary sr-icons"></i>
-            <h3>CONSUME DATA</h3>
+            <h3><a href="./search.php">CONSUME DATA</a></h3>
             <p class="text-muted">View all datasets you have subscribed</p>
           </div>
         </div>
         <div class="col-md-4 text-center">
           <div class="service-box">
             <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
-            <h3>PUBLISH DATA</h3>
+            <h3><a href="publish.php">PUBLISH DATA</a></h3>
             <p class="text-muted">Data you wish to make available to the community</p>
           </div>
         </div>
@@ -133,7 +103,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
-          <h2 class="section-heading">POPULAR DATASETS</h2>
+          <h2 class="section-heading">RECENT DATASETS</h2>
           <hr class="primary">
         </div>
       </div>
@@ -210,6 +180,7 @@
     </div>
   </section>
 
+  <?php include_once './include/footer.php'; ?>
 
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>

@@ -3,8 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/services/getUser.php</file>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Testing/FileAccessTest.php</file>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Framework/FileAccess/test.php</file>
             <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Testing/DataAccessTest.php</file>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Framework/FileAccess/FileAccess.php</file>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Testing/ServicesTest.php</file>
             <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/Framework/DataAccess/DataAccess.php</file>
+            <file>file:/Users/Brandon/Programming/CS4320/OCDXGroupProject/services/signup.php</file>
         </group>
     </open-files>
 </project-private>
