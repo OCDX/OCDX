@@ -193,6 +193,34 @@ namespace DataAccess {
             return $result;
         }
 
+        public function getByteStat(){
+            $stmt = $this->connection->prepare("CALL pSumBytes()");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result == null){
+                return null;
+            }
+            else{
+                return $result;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function getRecentlyAddedManifests(){
+            $stmt = $this->connection->prepare("CALL pSelectRecentlyAdded()");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result == null){
+                return null;
+            }
+            else{
+                return $result;
+            }
+            $stmt->close();
+            return $result;
+        }
+
         public function close()
         {
             return $this->connection->close();
