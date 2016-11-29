@@ -16,7 +16,9 @@ if ($manifestId != '') {
             $output->comment = $values["comment"];
             $output->username = $values["username"];
             $output->title = $values["title"];
-            array_push($files, $row);
+            if($row["name"] != null) {
+                array_push($files, $row);
+            }
             while ($row = $result->fetch_assoc()) {
                 array_splice($row, 0, 5);
                 array_push($files, $row);
