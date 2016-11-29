@@ -22,7 +22,7 @@ if($userId != '') {
                }
            }
 
-           echo json_encode(["success" =>true]);
+           echo json_encode(["success" =>true,"manifestId"=>$manifestId]);
        }
    }
 }
