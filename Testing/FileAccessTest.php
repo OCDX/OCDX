@@ -11,11 +11,11 @@ class FileAccessTest extends TestCase {
     public function testUpload() {
         $_FILES = array(
             'test' => array(
-                'name' => 'FileAccessTestFile.txt',
-                'type' => 'text/plain',
-                'size' => 58,
-                'tmp_name' => 'FileAccessTestFile.txt',
-                'error' => 0
+                'name' => array('FileAccessTestFile.txt'),
+                'type' => array('text/plain'),
+                'size' => array(58),
+                'tmp_name' => array('FileAccessTestFile.txt'),
+                'error' => array(0)
             )
         );
 
