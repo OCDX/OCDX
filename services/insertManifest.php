@@ -1,17 +1,20 @@
 <?php
-
 include_once "../Framework/DataAccess/DataAccess.php";
 include_once "../Framework/FileAccess/FileAccess.php";
 $standards = $_POST["standards"];
 $comments = $_POST["comment"];
-$userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : '';
 $title = $_POST["title"];
+session_start();
+$userId = 0;
+if(isset($_SESSION["user_id"]))
+  $userId = $_SESSION["user_id"];
 
-if($userId != '') {
+if($userId > 0) {
    $dataAccess = new \DataAccess\DataAccess();
    $fileAccess = new \FileAccess\FileAccess();
    $result = $dataAccess->insertManifest($standards, $comments, $userId, $title);
-   $manifestId = $result->fetch_assoc()['id'];
+   $manifestId = $result->fetch_assoc();
+   $manifestId = $manifestId['id'];
    if ($manifestId > -1) {
       $result1 = $dataAccess->insertResearchObject('','','','','','','','',$manifestId);
        $researchId = $result1->fetch_assoc()['id'];
