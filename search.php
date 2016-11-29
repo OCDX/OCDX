@@ -125,12 +125,12 @@
           });
           var search_by = $('input[name=options]:checked').val();
           var url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php";
-          url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
+          //url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
 
           if(search_by === "username")
             {
             url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchByUsername.php";
-            url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
+            //url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
             }
 
           console.log(search_by);
