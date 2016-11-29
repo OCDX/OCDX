@@ -88,9 +88,9 @@ namespace DataAccess {
 
         public function insertFile($file,$abstract,$researchId){
             if($file != null) {
-                $name = $file["name"][0];
+                $name = $file["name"];
                 $type = explode(".", $name)[1];
-                $size = $file["size"][0];
+                $size = $file["size"];
                 $url = "/publicFiles/" . $name;
                 $checksum = "";
                 $stmt = $this->connection->prepare("CALL pInsertFile(?,?,?,?,?,?,?)");

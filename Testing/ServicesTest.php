@@ -73,11 +73,11 @@ class ServicesTest extends TestCase {
         $_SESSION["user_id"] = 1;
         $_FILES = array(
             'test' => array(
-                'name' => array('FileAccessTestFile.txt'),
-                'type' => array('text/plain'),
-                'size' => array(58),
-                'tmp_name' => array('FileAccessTestFile.txt'),
-                'error' => array(0)
+                'name' => 'FileAccessTestFile.txt',
+                'type' => 'text/plain',
+                'size' => 58,
+                'tmp_name' => 'FileAccessTestFile.txt',
+                'error' => 0
             )
         );
         $_POST["standards"] = "automatedTest";
