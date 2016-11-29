@@ -10,5 +10,5 @@ BEGIN
 			ON research_object.research_object_id = files.research_object_id
 		INNER JOIN OCDXGroup1.users
 			ON manifest.user_id = users.user_id
-    WHERE users.username = username_in;
+    WHERE users.username LIKE CONCAT('%',username_in,'%');
   END

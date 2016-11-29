@@ -84,7 +84,7 @@ class ServicesTest extends TestCase {
         $_POST["comment"] = "automatedTest";
         $_POST["title"] = "automatedTest";
         require '../services/insertManifest.php';
-        $this->expectOutputString(json_encode(["success"=>true]));
+        $this->expectOutputRegex('{"success":true,"manifestId":[\d]+}');
     }
 
     public function testViewManifest(){
