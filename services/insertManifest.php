@@ -6,6 +6,7 @@ $comments = $_POST["comment"];
 $title = $_POST["title"];
 session_start();
 $userId = 0;
+
 if(isset($_SESSION["user_id"]))
   $userId = $_SESSION["user_id"];
 
