@@ -10,3 +10,4 @@ while ($row = $result->fetch_object()) {
 }
 echo json_encode($array);
 ?>
+
