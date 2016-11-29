@@ -69,7 +69,7 @@
   <section class="no-padding" id="result" style="display: none; margin-top:15px;">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
           <hgroup>
             <h1>Search Results</h1>
             <h2 class="lead">
@@ -81,7 +81,7 @@
       </div>
       <section class="no-padding" style="margin: 20px 0;">
         <div calss="row">
-          <div class="col-md-8 col-md-offset-2" id="search_list">
+          <div class="col-md-10 col-md-offset-1" id="search_list">
           </div>
         </div>
       </section>
@@ -125,15 +125,13 @@
           });
           var search_by = $('input[name=options]:checked').val();
           var url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php";
-          //url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
+          url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
 
           if(search_by === "username")
             {
             url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchByUsername.php";
-            //url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
+            url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
             }
-
-          console.log(search_by);
 
           $.ajax({
             type: 'POST',

@@ -53,7 +53,7 @@
       <div class="header-content-inner">
         <h1 id="homeHeading">SIGN UP</h1>
         <hr>
-        <p>1,751,009,072 <small>bytes of data today</small></p>
+        <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
       </div>
     </div>
   </header>

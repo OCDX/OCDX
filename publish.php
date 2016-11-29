@@ -3,6 +3,7 @@
   session_start();
   if(!isset($_SESSION["user_id"]) && !isset($_SESSION["username"]))
     header("Location: ./login.php?redirect=publish");
+
 ?>
 
 <!DOCTYPE html>
@@ -51,89 +52,73 @@
       <div class="header-content-inner">
         <h1 id="homeHeading">Publish Your Data</h1>
         <hr>
-        <p>1,751,009,072 <small>bytes of data today</small></p>
+        <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
       </div>
     </div>
   </header>
 
-  <section class="no-padding" style="margin:20px auto" id="header">
-    <div class="container">
-      <div class="panel panel-info">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" placeholder="Enter a Descriptive Title">
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" placeholder="Include a brief data overview for the subtitle">
+  <form action="" method="post" enctype="multipart/form-data" id="new_manifest">
+    <section class="no-padding" style="margin:20px auto" id="header">
+      <div class="container">
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <input class="form-control input-lg" name="title" type="text" placeholder="Enter a Descriptive Title" required>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" name="comment" type="text" placeholder="Include a brief data overview for the subtitle" required>
+                </div>
+                <div class="form-group">
+                  <input class="form-control" name="standards" type="text" placeholder="Standard version of the manifest" required>
+                </div>              
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <h3>By <small><?=$_SESSION['username'] ?></small></h3>
+            <div class="row">
+              <div class="col-md-12">
+                <h3>By <small><?=$_SESSION['username'] ?></small></h3>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
+      </div> <!-- /container -->
+    </section>
 
 
-  <section class="no-padding" style="margin:20px auto" id="description">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Description</strong></div>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div id="descriptionInput"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
-
-  <section class="no-padding" style="margin:20px auto" id="upload">
-    <div class="container">
-      <div class="panel panel-default">
-        <div class="panel-heading"><strong>Upload Files</strong></div>
-        <div class="panel-body">
-          <!-- Standar Form -->
-          <h4>Select files from your local machine</h4>
-          <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+    <section class="no-padding" style="margin:20px auto" id="upload">
+      <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-heading"><strong>Upload Files</strong></div>
+          <div class="panel-body">
+            <!-- Standar Form -->
+            <h4>Select files from your local machine</h4>
             <div class="form-inline">
               <div class="form-group">
-                <input type="file" name="files[]" id="js-upload-files" multiple>
+                <input type="file" name="files[]" id="new_file">
               </div>
-              <button class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+              <button class="btn btn-sm btn-primary" id="add_file">Upload files</button>
             </div>
-          </form>
-          <!-- Upload Finished -->
-          <div class="js-upload-finished">
-            <h3>Processed files</h3>
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-success">
-                <span class="badge alert-success pull-right">Success</span>image-01.jpg
-              </a>
-              <a href="#" class="list-group-item list-group-item-success">
-                <span class="badge alert-success pull-right">Success</span>image-02.jpg
-              </a>
+            <!-- Upload Finished -->
+            <div class="js-upload-finished">
+              <h3>Processed files</h3>
+              <div class="list-group" id="processed_files">
+                <div style="display:none;" id="input_files">
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> <!-- /container -->
-  </section>
-  <hr>
+      </div> <!-- /container -->
+    </section>
+    <hr>
 
-  <section class="no-padding">
-    <center>
-      <button class="btn btn-info btn-lg" style="margin:20px auto;">Publish Dataset</button>
-    </center>
-  </section>
+    <section class="no-padding">
+      <center>
+        <button type="submit" class="btn btn-info btn-lg" style="margin:20px auto;">Publish Dataset</button>
+      </center>
+    </section>
+  </form>
 
   <?php include_once './include/footer.php'; ?>
   <!-- jQuery -->
@@ -149,11 +134,48 @@
 
   <!-- Theme JavaScript -->
   <script src="js/creative.min.js"></script>
-  <script src="summernote/summernote.min.js"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#descriptionInput').summernote({
-        height: 200
+      $("#add_file").click(function(event) {
+        event.preventDefault();
+        var $clone = $("#new_file").clone();
+        $clone.removeAttr('id');
+        $("#input_files").append($clone);
+        $("#processed_files").append('<p class="list-group-item list-group-item-success">\
+            <span class="badge alert-success pull-right">Success</span> '+$clone.val()+'\
+          </p>');
+        $("#new_file").val("");
+      });
+      $("#new_manifest").submit(function(event) {
+        event.preventDefault();
+        $("#new_manifest button").prop('disabled', true);
+
+        var formData = new FormData($(this)[0]);
+
+        $.ajax({
+          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/insertManifest.php",
+          //url: "http://localhost/OCDXGroupProject/services/insertManifest.php",
+          type: 'POST',
+          data: formData,
+          async: false,
+          cache: false,
+          dataType: 'json',
+          contentType: false,
+          processData: false,
+          success: function (res) {
+            if(res.success == false)
+              {
+              alert("Fail "+res.msg);
+              $("#new_manifest button").prop('disabled', false);
+              }
+            else
+              {
+              alert("Success new manifest Id is "+res.manifestId);
+              }
+          }
+        });
+
       });
     });
   </script>
