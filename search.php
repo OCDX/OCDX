@@ -42,7 +42,7 @@
     <div class="header-content">
       <div class="header-content-inner">
         <h1 id="homeHeading">Explore Datasets</h1>
-        <p style="margin:0 auto;">1,751,009,072 <small>bytes of data today</small></p>
+        <p style="margin:0 auto;"><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
         <hr>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
