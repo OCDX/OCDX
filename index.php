@@ -1,3 +1,38 @@
+<?php
+function time_elapsed_string($datetime, $full = false)
+  {
+  $now = new DateTime;
+  $ago = new DateTime($datetime);
+  $diff = $now->diff($ago);
+
+  $diff->w = floor($diff->d / 7);
+  $diff->d -= $diff->w * 7;
+
+  $string = array(
+      'y' => 'year',
+      'm' => 'month',
+      'w' => 'week',
+      'd' => 'day',
+      'h' => 'hour',
+      'i' => 'minute',
+      's' => 'second',
+  );
+  foreach ($string as $k => &$v)
+    {
+    if ($diff->$k)
+      {
+      $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 's' : '');
+      } 
+    else
+      {
+      unset($string[$k]);
+      }
+    }
+
+  if (!$full) $string = array_slice($string, 0, 1);
+  return $string ? implode(', ', $string) . ' ago' : 'just now';
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +79,7 @@
       <div class="header-content-inner">
         <h1 id="homeHeading">Open Community Data Exchange</h1>
         <hr>
-        <p>1,751,009,072 <small>bytes of data today</small></p>
+        <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
         <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
       </div>
     </div>
@@ -109,35 +144,22 @@
       </div>
     </div>    
     <div class="container">
+      <?php
+        //$json = file_get_contents('http://localhost/OCDXGroupProject/services/getRecentManifests.php');
+        $json = file_get_contents('http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/getRecentManifests.php');
+        $array = json_decode($json);
+      ?>
       <div class="row">
         <div class="col-sm-6">
           <div class="review-block">
             <div class="row">
               <div class="col-sm-3">
-                <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                <div class="review-block-name"><a href="#">John Doe</a></div>
-                <div class="review-block-date">1 day ago</div>
+                <div class="review-block-name">By <?=$array[0]->username ?></div>
+                <div class="review-block-date"><?=time_elapsed_string($array[0]->date_created) ?></div>
               </div>
               <div class="col-sm-9">
-                <div class="review-block-rate">
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>                  
-                  <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                </div>
-                <div class="review-block-title">Lorem Ipsum</div>
-                <div class="review-block-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et efficitur nulla. Integer tempus gravida justo, eget pharetra velit. Vestibulum lacinia lacus ex, sit amet ornare tellus consectetur id.</div>
+                <div class="review-block-title"><a href="./view.php?id=<?=$array[0]->manifest_id ?>"><?=$array[0]->title ?></a></div>
+                <div class="review-block-description"><?=$array[0]->comment ?></div>
               </div>
             </div>
             
@@ -147,30 +169,12 @@
           <div class="review-block">
             <div class="row">
               <div class="col-sm-3">
-                <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                <div class="review-block-name"><a href="#">John Doe</a></div>
-                <div class="review-block-date">1 day ago</div>
+                <div class="review-block-name">By <?=$array[1]->username ?></div>
+                <div class="review-block-date"><?=time_elapsed_string($array[1]->date_created) ?></div>
               </div>
               <div class="col-sm-9">
-                <div class="review-block-rate">
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>                  
-                  <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                  </button>
-                </div>
-                <div class="review-block-title">Lorem Ipsum</div>
-                <div class="review-block-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et efficitur nulla. Integer tempus gravida justo, eget pharetra velit. Vestibulum lacinia lacus ex, sit amet ornare tellus consectetur id.</div>
+                <div class="review-block-title"><a href="./view.php?id=<?=$array[1]->manifest_id ?>"><?=$array[1]->title ?></a></div>
+                <div class="review-block-description"><?=$array[1]->comment ?></div>
               </div>
             </div>
             
