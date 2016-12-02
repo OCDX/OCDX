@@ -59,6 +59,34 @@ namespace DataAccess {
             return $result;
         }
 
+        public function getByteStat(){
+            $stmt = $this->connection->prepare("CALL pSumBytes()");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result == null){
+                return null;
+            }
+            else{
+                return $result;
+            }
+            $stmt->close();
+            return $result;
+        }
+
+        public function getRecentlyAddedManifests(){
+            $stmt = $this->connection->prepare("CALL pSelectRecentlyAdded()");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if($result == null){
+                return null;
+            }
+            else{
+                return $result;
+            }
+            $stmt->close();
+            return $result;
+        }
+
         public function searchByUsername($username)
         {
             $stmt = $this->connection->prepare("CALL pSearchByUsername(?)");
@@ -193,32 +221,39 @@ namespace DataAccess {
             return $result;
         }
 
-        public function getByteStat(){
-            $stmt = $this->connection->prepare("CALL pSumBytes()");
+        public function deleteFile($file_id)
+        {
+            $this->logger->logInfo("Calling delete file, the file id is ".$file_id);
+            $stmt = $this->connection->prepare("CALL pDeleteFile(?)");
+            $stmt->bind_param("i", $file_id);
             $stmt->execute();
-            $result = $stmt->get_result();
-            if($result == null){
+            $result = $stmt->affected_rows;
+            if ($result == -1) {
+                $this->logger->logError("There was an error deleting a file: " . $this->connection->error);
                 return null;
             }
             else{
-                return $result;
+                $this->logger->logInfo("Successfully deleted file");
             }
             $stmt->close();
             return $result;
         }
 
-        public function getRecentlyAddedManifests(){
-            $stmt = $this->connection->prepare("CALL pSelectRecentlyAdded()");
+        public function updateManifest($standardsVersion, $comment, $title,$manifestId)
+        {
+            $this->logger->logInfo("Calling update manifest, parameters are $standardsVersion $comment $title $manifestId");
+            $stmt = $this->connection->prepare("CALL pUpdateManifest(?,?,?,?)");
+            $stmt->bind_param("sssi", $standardsVersion, $comment, $title,$manifestId);
             $stmt->execute();
-            $result = $stmt->get_result();
-            if($result == null){
-                return null;
+            if ($stmt->affected_rows == -1) {
+                $this->logger->logError("There was an error updating a manifest: " . $this->connection->error);
+                return -1;
             }
             else{
-                return $result;
+                $this->logger->logInfo("Successfully updated manifest");
             }
             $stmt->close();
-            return $result;
+            return 1;
         }
 
         public function close()
