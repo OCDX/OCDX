@@ -5,7 +5,7 @@
 		<!-- [Date] [Time] [Logging Level] [Class Name] - [Message]-->
 		<param name="ConversionPattern" value="%date{Y-m-d H:i:s,u} %logger %-5level %msg%n" />
 	</layout>
-		<param name="file" value="/Users/Brandon/Desktop/log%s.txt" />
+		<param name="file" value="/var/www/logs/log%s.txt" />
 		<!-- Location log will be created-->
 		<!-- Make log file roll over by date and not by size -->
 		<param name="datePattern" value="Y-m-d" />
