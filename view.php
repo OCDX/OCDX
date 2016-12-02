@@ -117,7 +117,7 @@
 
   <!-- Theme JavaScript -->
   <script src="js/creative.min.js"></script>
-  <script src="summernote/summernote.min.js"></script>
+  
   <script type="text/javascript">
     function scroll_to(id)
       {

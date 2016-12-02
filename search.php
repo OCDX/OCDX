@@ -42,7 +42,7 @@
     <div class="header-content">
       <div class="header-content-inner">
         <h1 id="homeHeading">Explore Datasets</h1>
-        <p style="margin:0 auto;">1,751,009,072 <small>bytes of data today</small></p>
+        <p style="margin:0 auto;"><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
         <hr>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
@@ -69,7 +69,7 @@
   <section class="no-padding" id="result" style="display: none; margin-top:15px;">
     <div class="container">
       <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
           <hgroup>
             <h1>Search Results</h1>
             <h2 class="lead">
@@ -81,7 +81,7 @@
       </div>
       <section class="no-padding" style="margin: 20px 0;">
         <div calss="row">
-          <div class="col-md-8 col-md-offset-2" id="search_list">
+          <div class="col-md-10 col-md-offset-1" id="search_list">
           </div>
         </div>
       </section>
@@ -142,8 +142,8 @@
             data: { searchField : keyword, username : keyword },
             success: function (res)
               {
+                      //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $("#search_list").html('');
-              //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $.each(res, function(index, val) {
                 count++;
                 var date = val.date_created.split(" ");
