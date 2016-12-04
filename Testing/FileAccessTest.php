@@ -34,4 +34,21 @@ class FileAccessTest extends TestCase {
         $this->assertEquals($fileAccess->uploadFile(null), false);
     }
 
+    public function testLargeFile()
+    {
+        $_FILES = array(
+            'test' => array(
+                'name' => 'FileAccessTestFile.txt',
+                'type' => 'text/plain',
+                'size' => 525588001,
+                'tmp_name' => 'FileAccessTestFile.txt',
+                'error' => 0
+            )
+        );
+
+        $fileAccess = new FileAccess();
+        $this->assertEquals($fileAccess->uploadFile($_FILES["test"]), false);
+        unset($_FILES);
+    }
+
 }

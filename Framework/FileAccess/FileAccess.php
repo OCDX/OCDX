@@ -33,12 +33,18 @@ namespace FileAccess {
         public function uploadFile($file) {
             if($file != null) {
                 $targetFile = $this->baseDirectory . $file["name"];
-
-                if (copy($file["tmp_name"], $targetFile)) {
-                    $this->logger->logInfo("The file " . $file["name"] . " was successfully uploaded");
-                    return true;
-                } else {
-                    $this->logger->logInfo("The file " . $file["name"] . " failed to upload");
+                //less than or equal to 500 MB
+                if($file["size"] <= 524288000) {
+                    if (copy($file["tmp_name"], $targetFile)) {
+                        $this->logger->logInfo("The file " . $file["name"] . " was successfully uploaded");
+                        return true;
+                    } else {
+                        $this->logger->logInfo("The file " . $file["name"] . " failed to upload");
+                        return false;
+                    }
+                }
+                else{
+                    $this->logger->logInfo("The file " . $file["name"] . " failed to upload because the size was larger than 500 MB, it was ".number_format($file["size"] / 1048576, 2) . ' MB');
                     return false;
                 }
             }
