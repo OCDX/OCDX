@@ -100,5 +100,10 @@ class ServicesTest extends TestCase {
         $this->expectOutputString(json_encode(["success"=>false]));
     }
 
+    public function testDeleteFile(){
+        $_POST["fileId"] = 71;
+        require '../services/deleteFile.php';
+        unset($_POST);
+    }
 
 }

@@ -227,8 +227,8 @@ namespace DataAccess {
             $stmt = $this->connection->prepare("CALL pDeleteFile(?)");
             $stmt->bind_param("i", $file_id);
             $stmt->execute();
-            $result = $stmt->affected_rows;
-            if ($result == -1) {
+            $result = $stmt->get_result();
+            if ($result == null) {
                 $this->logger->logError("There was an error deleting a file: " . $this->connection->error);
                 return null;
             }

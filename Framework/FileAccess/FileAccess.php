@@ -29,6 +29,12 @@ namespace FileAccess {
             }
         }
 
+        public function deleteFile($file){
+            if (file_exists($this->baseDirectory .$file)) {
+                unlink($this->baseDirectory .$file);
+            }
+        }
+
         //this will take in a file from the FILES global array and try and upload it, returns true if successful, false if not
         public function uploadFile($file) {
             if($file != null) {
