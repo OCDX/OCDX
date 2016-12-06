@@ -33,7 +33,6 @@
   <!-- Theme CSS -->
   <link href="css/creative.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet" type="text/css" >
-  <link href="summernote/summernote.css" rel="stylesheet" type="text/css" >
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,6 +52,7 @@
         <h1 id="homeHeading">Publish Your Data</h1>
         <hr>
         <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
+        <a href="#new_manifest" class="btn btn-primary btn-xl page-scroll">Publish Now</a>
       </div>
     </div>
   </header>
@@ -65,13 +65,13 @@
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group">
-                  <input class="form-control input-lg" name="title" type="text" placeholder="Enter a Descriptive Title" required>
+                  <input class="form-control input-lg" name="title" type="text" placeholder="Enter a Descriptive Title" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" name="comment" type="text" placeholder="Include a brief data overview for the subtitle" required>
+                  <input class="form-control" name="comment" type="text" placeholder="Include a brief data overview for the subtitle" autocomplete="off" required>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" name="standards" type="text" placeholder="Standard version of the manifest" required>
+                  <input class="form-control" name="standards" type="text" placeholder="Standard version of the manifest" autocomplete="off" required>
                 </div>              
               </div>
             </div>
@@ -94,17 +94,16 @@
             <!-- Standar Form -->
             <h4>Select files from your local machine</h4>
             <div class="form-inline">
-              <div class="form-group">
-                <input type="file" name="files[]" id="new_file">
-              </div>
-              <button class="btn btn-sm btn-primary" id="add_file">Upload files</button>
+              <button class="btn btn-sm btn-primary" id="add_file">Add file</button>
             </div>
             <!-- Upload Finished -->
             <div class="js-upload-finished">
               <h3>Processed files</h3>
               <div class="list-group" id="processed_files">
+              <!--            
                 <div style="display:none;" id="input_files">
                 </div>
+              -->
               </div>
             </div>
           </div>
@@ -136,17 +135,23 @@
   <script src="js/creative.min.js"></script>
 
   <script type="text/javascript">
+    var count = 0;
     $(document).ready(function() {
       $("#add_file").click(function(event) {
         event.preventDefault();
-        var $clone = $("#new_file").clone();
-        $clone.removeAttr('id');
-        $("#input_files").append($clone);
-        $("#processed_files").append('<p class="list-group-item list-group-item-success">\
-            <span class="badge alert-success pull-right">Success</span> '+$clone.val()+'\
-          </p>');
-        $("#new_file").val("");
+        // var $clone = $("#new_file").clone();
+        // $clone.removeAttr('id');
+        // $("#input_files").append($clone);
+        // $("#processed_files").append('<p class="list-group-item list-group-item-success">\
+        //     <span class="badge alert-success pull-right">Success</span> '+$clone.val()+'\
+        //   </p>');
+        // $("#new_file").val("");
+        $("#processed_files").append('<div class="form-group form-inline">\
+                <input type="file" name="file'+count+'">\
+              </div>');
+        count++;
       });
+
       $("#new_manifest").submit(function(event) {
         event.preventDefault();
         $("#new_manifest button").prop('disabled', true);
@@ -171,7 +176,8 @@
               }
             else
               {
-              alert("Success new manifest Id is "+res.manifestId);
+              //alert("Success new manifest Id is "+res.manifestId);
+              window.location = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id="+res.manifestId;
               }
           }
         });

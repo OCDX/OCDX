@@ -53,39 +53,31 @@
       <div class="header-content-inner">
         <h1 id="homeHeading">SIGN UP</h1>
         <hr>
-        <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div id="alert">
+            </div>
+            <form method="post" role="form" id="register_form">
+              <div class="form-group">
+                <input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="1" required>
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+              </div>
+
+              <hr class="colorgraph">
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <input type="submit" value="Register" onclick="javascript:void(0);" id="submitbutton" class="btn btn-primary btn-block btn-lg" tabindex="3">
+                </div>
+                <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Login</a></div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </header>
-  <section class="no-padding" style="margin:50px auto" id="register">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-          <div id="alert">
-          </div>
-          <form method="post" role="form" id="register_form">
-            <h2>Please Sign Up <small>It's free and always will be.</small></h2>
-            <hr class="colorgraph">
-            <div class="form-group">
-              <input type="text" name="username" class="form-control input-lg" placeholder="Username" tabindex="1" required>
-            </div>
-            <div class="form-group">
-              <input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
-            </div>
-
-            <hr class="colorgraph">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <input type="submit" value="Register" onclick="javascript:void(0);" id="submitbutton" class="btn btn-primary btn-block btn-lg" tabindex="3">
-              </div>
-              <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Login</a></div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <?php include_once './include/footer.php'; ?>
 

@@ -7,7 +7,7 @@ $manifestId = $_POST["manifestId"];
 
     $dataAccess = new \DataAccess\DataAccess();
     $result = $dataAccess->updateManifest($standards, $comments, $title,$manifestId);
-    if(result == 1){
+    if($result == 1){
         echo json_encode(["success"=>true]);
     }
     else{

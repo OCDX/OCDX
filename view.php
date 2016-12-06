@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,6 @@
 
   <?php include_once './include/header.php'; ?>
 
-
   <header style="color:#444;">
     <div class="header-content">
       <div class="container">
@@ -61,16 +61,14 @@
                   </h3>
                   <br>
                   <p>
-                    <strong>By</strong>
-                    <br>
-                    <span id="username"></span>
+                    <strong>By <span id="username"></span></strong>
                     <br>
                     <small id="date_created"></small>
                   </p>
                   <span class="tags" id="standards_versions"></span> 
                   <hr>
                 </div>             
-                <div class="col-md-12 divider text-center">
+                <div class="col-md-12 divider text-center" id="buttons">
                   <h2><strong id="files_count"></strong></h2>
                   <p><small>Files</small></p>
                   <button class="btn btn-info btn-block" id="download_button"><span class="fa fa-download"></span> Download </button>
@@ -103,6 +101,36 @@
     </section>
   </div>
 
+  <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Edit Manifest</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input class="form-control input-lg" name="title" type="text" placeholder="Enter a Descriptive Title" autocomplete="off" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="comment" type="text" placeholder="Include a brief data overview for the subtitle" autocomplete="off" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="standards" type="text" placeholder="Standard version of the manifest" autocomplete="off" required>
+              </div>              
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="javascript:save_manifest();">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
   <?php include_once './include/footer.php'; ?>
   <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -119,6 +147,7 @@
   <script src="js/creative.min.js"></script>
   
   <script type="text/javascript">
+    var username = "<?=$_SESSION['username'] ?>";
     function scroll_to(id)
       {
       id = id.replace("link", "");
@@ -126,7 +155,6 @@
         scrollTop: $("#"+id).offset().top},
         'slow');
       }
-
     function file_select(obj,id)
       {
       $(".files_bt").removeClass('active');
@@ -136,12 +164,88 @@
       $("#file_"+id).delay(400).fadeIn('slow');
       }
 
+    function delete_manifest(name)
+      {
+      if(name === username && confirm("Are you sure to delete this manifest?"))
+        {
+        $(".content").fadeOut('fast', function() {
+          $("#loading").delay(400).fadeIn('fast');
+        });
+        $.ajax({
+          type: "POST",
+          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/deleteManifest.php",
+          //url: "http://localhost/OCDXGroupProject/services/deleteManifest.php",
+          dataType: 'json',
+          data: {manifestId : "<?=$_GET['id'] ?>"},
+          success: function(res)
+            {
+            if(res.success)
+              {
+              alert(res.msg);
+              window.location.href = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX";
+              }
+            else
+              {
+              if(res.msg)
+                alert(res.msg);
+              else
+                alert("Error!");
+
+              $("#loading").fadeOut('fast', function() {
+                $(".content").delay(400).fadeIn('fast');
+              });              
+              }
+            }
+          });        
+        }
+      }
+    function edit_manifest(name)
+      {
+      $('#edit input[name=title]').val($("#title").text());   
+      $('#edit input[name=comment]').val($("#comment").text());   
+      $('#edit input[name=standards]').val($("#standards_versions").text());   
+      $('#edit').modal('show');
+      }
+    function save_manifest()
+      {
+      var data = { 
+        manifestId : "<?=$_GET['id'] ?>",
+        standards : $('#edit input[name=standards]').val(),
+        comment : $('#edit input[name=comment]').val(),
+        title : $('#edit input[name=title]').val()
+      }
+
+      $.ajax({
+        type: "POST",
+        url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/updateManifest.php",
+        //url: "http://localhost/OCDXGroupProject/services/updateManifest.php",
+        dataType: 'json',
+        data: data,
+        success: function(res)
+          {
+          if(res.success)
+            {
+            $("#title").text(data.title)
+            $("#comment").text(data.comment)
+            $("#standards_versions").text(data.standards);
+            $('#edit').modal('hide');
+            }
+          }
+        }); 
+      }
+    function delete_file(id)
+      {
+      if(confirm("Are you sure?"))
+        {
+        $("#file_list_"+id).remove();
+        $("#file_"+id).remove();
+        }
+      }
+
     $(document).ready(function() {
-      
       $("#download_button").click(function(event) {
         scroll_to("download");
       });
-
       $.ajax({
         type: "POST",
         url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/viewManifest.php",
@@ -165,18 +269,26 @@
               $("#files_count").text(res.files.length);
 
               $.each(res.files, function(index, val) {
+                var delete_file_button = '';
+                if(username === res.username)
+                  delete_file_button = '<button class="btn btn-danger" onclick="javascript:delete_file('+index+');">Delete</button>';
 
-                $("#files").append('<a class="files_bt list-group-item" onclick="javascript:file_select(this,'+index+')">'+val.name+'</a>');
+                $("#files").append('<a class="files_bt list-group-item" id="file_list_'+index+'" onclick="javascript:file_select(this,'+index+')">'+val.name+'</a>');
                 $("#files a:first-child").addClass('active');
 
                 $("#files_content").append('<div class="files_list" id="file_'+index+'" style="display:none">\
-                    <h3>\
+                  <h3>\
                     '+val.name+'\
-                    <i class="fa fa-download fa-pull-right fa-border text-danger"></i>\
                   </h3>\
+                  <form action="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/download.php" method="post" target="_blank">\
+                    <button type="submit" class="btn pull-left"><i class="fa fa-download fa-pull-right fa-border text-danger"></i> Download</button>\
+                    <input type="hidden" name="filename" value="'+val.name+'">\
+                  </form>\
+                  '+delete_file_button+'\
+                  <div class="clearfix"></div>\
                   <br>\
                   <strong>File format:</strong> '+val.format+'<br>\
-                  <strong>File size:</strong> '+val.size+' KB <br>\
+                  <strong>File size:</strong> '+val.size+' Bytes <br>\
                   <h3>Abstract:</h3>\
                   <div class="well well-sm">\
                   '+val.abstract+'\
@@ -185,14 +297,17 @@
 
                 $(".files_list:first-child").fadeIn('fast');
               });
-
+              if(username === res.username)
+                {
+                $("#buttons").append('<button class="btn btn-warning btn-block" onclick="javascript:edit_manifest(\''+res.username+'\');">Edit</butoon> <button class="btn btn-danger btn-block" onclick="javascript:delete_manifest(\''+res.username+'\');">Delete</butoon>')
+                }
               $(".content").fadeIn('fast');
             });
             }
           console.log(res);
           }
         });
-      
+
     });
   </script>
 

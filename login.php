@@ -52,43 +52,35 @@
       <div class="header-content-inner">
         <h1 id="homeHeading">LOGIN</h1>
         <hr>
-        <p><?php include_once './include/byte.php'; ?> <small>bytes of data today</small></p>
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div id="alert">
+            </div>          
+            <form method="post" role="form" id="login_form">
+              <fieldset>
+                <div class="form-group">
+                  <input type="text" name="username" class="form-control input-lg" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password"= class="form-control input-lg" placeholder="Password" required>
+                </div>
+                <hr class="colorgraph">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input type="submit" value="Login" onclick="javascript:void(0);" id="submitbutton" class="btn btn-success btn-block btn-lg" tabindex="3">
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <a href="./register.php" class="btn btn-lg btn-primary btn-block">Register</a>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <section class="no-padding" style="margin:50px auto" id="register">
-    <div class="container">
-
-      <div class="row" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-          <div id="alert">
-          </div>          
-          <form method="post" role="form" id="login_form">
-            <fieldset>
-              <h2>Please Login</h2>
-              <hr class="colorgraph">
-              <div class="form-group">
-                <input type="text" name="username" class="form-control input-lg" placeholder="Username" required>
-              </div>
-              <div class="form-group">
-                <input type="password" name="password"= class="form-control input-lg" placeholder="Password" required>
-              </div>
-              <hr class="colorgraph">
-              <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                  <input type="submit" value="Login" onclick="javascript:void(0);" id="submitbutton" class="btn btn-success btn-block btn-lg" tabindex="3">
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                  <a href="./register.php" class="btn btn-lg btn-primary btn-block">Register</a>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <?php include_once './include/footer.php'; ?>
 

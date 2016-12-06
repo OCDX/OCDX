@@ -142,11 +142,12 @@
             data: { searchField : keyword, username : keyword },
             success: function (res)
               {
-                      //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
               $("#search_list").html('');
               $.each(res, function(index, val) {
                 count++;
                 var date = val.date_created.split(" ");
+                //<h3><a target="_blank" href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
+                //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
                 var list = '\
                   <article class="search-result row">\
                     <div class="col-xs-12 col-sm-12 col-md-10">\
