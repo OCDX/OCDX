@@ -251,6 +251,9 @@
             {
             if(res.success)
               {
+                  var count = $("#files_count").text();
+                  count--;
+                  $("#files_count").text(count);
               $("#file_list_"+id).remove();
               $("#file_"+id).remove();
               }
