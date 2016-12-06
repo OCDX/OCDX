@@ -201,10 +201,13 @@
       }
     function edit_manifest(name)
       {
-      $('#edit input[name=title]').val($("#title").text());   
-      $('#edit input[name=comment]').val($("#comment").text());   
-      $('#edit input[name=standards]').val($("#standards_versions").text());   
-      $('#edit').modal('show');
+      if(name === username)
+        {
+        $('#edit input[name=title]').val($("#title").text());   
+        $('#edit input[name=comment]').val($("#comment").text());   
+        $('#edit input[name=standards]').val($("#standards_versions").text());   
+        $('#edit').modal('show');
+        }
       }
     function save_manifest()
       {
@@ -233,12 +236,30 @@
           }
         }); 
       }
-    function delete_file(id)
+    function delete_file(id,file_id)
       {
       if(confirm("Are you sure?"))
         {
-        $("#file_list_"+id).remove();
-        $("#file_"+id).remove();
+
+        $.ajax({
+          type: "POST",
+          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/deleteFile.php",
+          //url: "http://localhost/OCDXGroupProject/services/deleteFile.php",
+          dataType: 'json',
+          data: {fileId: file_id},
+          success: function(res)
+            {
+            if(res.success)
+              {
+              $("#file_list_"+id).remove();
+              $("#file_"+id).remove();
+              }
+            else
+              {
+              alert(res.msg);
+              }
+            }
+          });         
         }
       }
 
@@ -270,8 +291,8 @@
 
               $.each(res.files, function(index, val) {
                 var delete_file_button = '';
-                if(username === res.username)
-                  delete_file_button = '<button class="btn btn-danger" onclick="javascript:delete_file('+index+');">Delete</button>';
+                if(username !== res.username)
+                  delete_file_button = '<button class="btn btn-danger" onclick="javascript:delete_file('+index+','+val.file_id+');">Delete</button>';
 
                 $("#files").append('<a class="files_bt list-group-item" id="file_list_'+index+'" onclick="javascript:file_select(this,'+index+')">'+val.name+'</a>');
                 $("#files a:first-child").addClass('active');
