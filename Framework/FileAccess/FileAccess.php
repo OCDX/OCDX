@@ -32,6 +32,7 @@ namespace FileAccess {
         public function deleteFile($file){
             if (file_exists($this->baseDirectory .$file)) {
                 unlink($this->baseDirectory .$file);
+                $this->logger->logInfo("File ".$this->baseDirectory .$file." has been deleted");
             }
         }
 

@@ -101,7 +101,7 @@ class ServicesTest extends TestCase {
     }
 
     public function testDeleteFile(){
-        $_POST["fileId"] = 71;
+        $_POST["fileId"] = 87;
         require '../services/deleteFile.php';
         unset($_POST);
     }
