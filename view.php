@@ -291,7 +291,7 @@
 
               $.each(res.files, function(index, val) {
                 var delete_file_button = '';
-                if(username !== res.username)
+                if(username === res.username)
                   delete_file_button = '<button class="btn btn-danger" onclick="javascript:delete_file('+index+','+val.file_id+');">Delete</button>';
 
                 $("#files").append('<a class="files_bt list-group-item" id="file_list_'+index+'" onclick="javascript:file_select(this,'+index+')">'+val.name+'</a>');
