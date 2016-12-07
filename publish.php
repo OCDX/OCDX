@@ -159,7 +159,7 @@
         var formData = new FormData($(this)[0]);
 
         $.ajax({
-          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/insertManifest.php",
+          url: "/OCDX/services/insertManifest.php",
           //url: "http://localhost/OCDXGroupProject/services/insertManifest.php",
           type: 'POST',
           data: formData,
@@ -177,7 +177,7 @@
             else
               {
               //alert("Success new manifest Id is "+res.manifestId);
-              window.location = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id="+res.manifestId;
+              window.location = "/OCDX/view.php?id="+res.manifestId;
               }
           }
         });

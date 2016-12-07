@@ -107,7 +107,7 @@
         $("#submitbutton").prop('disabled', true);
         $.ajax({
           type: "POST",
-          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/getUser.php",
+          url: "/OCDX/services/getUser.php",
           //url: "http://localhost/OCDXGroupProject/services/getUser.php",
           dataType: 'json',
           data: $form.serializeArray(),
@@ -118,9 +118,9 @@
               $('#alert').html('<div class="alert alert-success"><span class="fa fa-success"></span>'+response.msg+'</div>');
               <?php
                 if(isset($_GET['redirect']))
-                  $url = 'http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/'.$_GET["redirect"].'.php';
+                  $url = '/OCDX/'.$_GET["redirect"].'.php';
                 else
-                  $url = 'http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/index.php';
+                  $url = '/OCDX/index.php';
               ?>
               window.location.href = "<?=$url ?>";
               }

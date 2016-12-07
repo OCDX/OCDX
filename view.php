@@ -173,7 +173,7 @@
         });
         $.ajax({
           type: "POST",
-          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/deleteManifest.php",
+          url: "/OCDX/services/deleteManifest.php",
           //url: "http://localhost/OCDXGroupProject/services/deleteManifest.php",
           dataType: 'json',
           data: {manifestId : "<?=$_GET['id'] ?>"},
@@ -182,7 +182,7 @@
             if(res.success)
               {
               alert(res.msg);
-              window.location.href = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX";
+              window.location.href = "/OCDX";
               }
             else
               {
@@ -220,7 +220,7 @@
 
       $.ajax({
         type: "POST",
-        url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/updateManifest.php",
+        url: "/OCDX/services/updateManifest.php",
         //url: "http://localhost/OCDXGroupProject/services/updateManifest.php",
         dataType: 'json',
         data: data,
@@ -243,7 +243,7 @@
 
         $.ajax({
           type: "POST",
-          url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/deleteFile.php",
+          url: "/OCDX/services/deleteFile.php",
           //url: "http://localhost/OCDXGroupProject/services/deleteFile.php",
           dataType: 'json',
           data: {fileId: file_id},
@@ -272,7 +272,7 @@
       });
       $.ajax({
         type: "POST",
-        url: "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/viewManifest.php",
+        url: "/OCDX/services/viewManifest.php",
         //url: "http://localhost/OCDXGroupProject/services/viewManifest.php",
         dataType: 'json',
         data: {manifest : "<?=$_GET['id'] ?>"},
@@ -304,7 +304,7 @@
                   <h3>\
                     '+val.name+'\
                   </h3>\
-                  <form action="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/download.php" method="post" target="_blank">\
+                  <form action="/OCDX/services/download.php" method="post" target="_blank">\
                     <button type="submit" class="btn pull-left"><i class="fa fa-download fa-pull-right fa-border text-danger"></i> Download</button>\
                     <input type="hidden" name="filename" value="'+val.name+'">\
                   </form>\

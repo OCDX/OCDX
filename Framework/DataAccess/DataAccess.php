@@ -16,7 +16,7 @@ namespace DataAccess {
     {
 
         public $connection;
-        private $host = "ec2-54-145-239-64.compute-1.amazonaws.com";
+        private $host = "localhost";
         private $user = 'public';
         private $password = 'P@ssword';
         private $database = 'OCDXGroup1';

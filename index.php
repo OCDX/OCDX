@@ -147,7 +147,7 @@ function time_elapsed_string($datetime, $full = false)
     <div class="container">
       <?php
         //$json = file_get_contents('http://localhost/OCDXGroupProject/services/getRecentManifests.php');
-        $json = file_get_contents('http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/getRecentManifests.php');
+        $json = file_get_contents('/OCDX/services/getRecentManifests.php');
         $array = json_decode($json);
       ?>
       <div class="row">

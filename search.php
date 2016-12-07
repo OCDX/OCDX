@@ -124,12 +124,12 @@
             scroll_to("status");
           });
           var search_by = $('input[name=options]:checked').val();
-          var url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchManifest.php";
+          var url = "/OCDX/services/searchManifest.php";
           //url = "http://localhost/OCDXGroupProject/services/searchManifest.php";
 
           if(search_by === "username")
             {
-            url = "http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/services/searchByUsername.php";
+            url = "/OCDX/services/searchByUsername.php";
             //url = "http://localhost/OCDXGroupProject/services/searchByUsername.php";
             }
 
@@ -146,12 +146,12 @@
               $.each(res, function(index, val) {
                 count++;
                 var date = val.date_created.split(" ");
-                //<h3><a target="_blank" href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
+                //<h3><a target="_blank" href="/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
                 //<h3><a target="_blank" href="http://localhost/swe/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
                 var list = '\
                   <article class="search-result row">\
                     <div class="col-xs-12 col-sm-12 col-md-10">\
-                      <h3><a target="_blank" href="http://ec2-54-145-239-64.compute-1.amazonaws.com/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
+                      <h3><a target="_blank" href="/OCDX/view.php?id='+val.manifest_id+'">'+val.title+'</a></h3>\
                       <p>'+val.description+'</p>\
                     </div>\
                     <div class="col-xs-12 col-sm-12 col-md-2">\
