@@ -31,7 +31,7 @@ sudo /etc/init.d/mysql start`
 
 ### Install PHP and Apache
 1. Install PHP and Apache with the following commands
-2. `sudo yum install -y httpd24 php71 php71-mysqlnd`
+2. `sudo yum install -y httpd24 php56 php56-mysqlnd`
 3. `sudo service httpd start`
 4. Run this command to allow FileZilla or other FPS program to make changes to the web directory `sudo chmod 777 /var/www/html`
 5. You should now be able to navigate to your public DNS in a web browser and receive the Apache test page, if you cannot make sure the security groups are set up correctly in AWS
