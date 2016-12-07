@@ -13,4 +13,5 @@ sudo mkdir /var/www/logs &&
 sudo chmod 777 /var/www/logs/ &&
 sudo chmod 777 /publicFiles &&
 sudo service httpd start &&
-mysql -u root < /var/www/html/OCDX/deployment/databaseSetup.sql;
+mysql -u root < /var/www/html/OCDX/deployment/databaseSetup.sql
+php var/www/html/OCDX/deployment/setTimezone.php;
