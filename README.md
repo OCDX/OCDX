@@ -41,3 +41,6 @@ sudo /etc/init.d/mysql start`
 
 ### MariaDB Configuration and database setup
 1. Run the databaseSetup.sql script in the deployment directory inside of MySQL Workbench or other database connector to create database, tables, procedures, users for the application
+
+### Application Deployment
+1. Clone the repository to the server inside of the OCDX folder created in the /var/www/html/OCDX directory or manually copy the Framework,css,img,include,js,services and vendor directories as well as the PHP files in the root directory
