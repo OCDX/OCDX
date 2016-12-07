@@ -20,11 +20,12 @@ This project is a centralized system for the storing and sharing of data and scr
 ### Install MariaDB
 1. Run the following commands to install MariaDB
 2. `sudo vi /etc/yum.repos.d/maria.repo`
-3. copy the following into this new file `[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/5.5/centos6-amd64
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1`
+3. copy the following into this new file 
+ `[mariadb]  
+ name = MariaDB  
+ baseurl = http://yum.mariadb.org/5.5/centos6-amd64  
+ gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB  
+ gpgcheck=1`
 4. run the following 2 commands to install and start MariaDB `sudo yum install -y MariaDB-server MariaDB-client
 sudo /etc/init.d/mysql start`
 5. run this command to secure the MariaDB database and set your own root password `mysql_secure_installation`
@@ -44,3 +45,4 @@ sudo /etc/init.d/mysql start`
 
 ### Application Deployment
 1. Clone the repository to the server inside of the OCDX folder created in the /var/www/html/OCDX directory or manually copy the Framework,css,img,include,js,services and vendor directories as well as the PHP files in the root directory
+2. The application should now be working, navigate to your servers's DNS again in a web browser with OCDX(http://host/OCDX/) and the website should be working! 
