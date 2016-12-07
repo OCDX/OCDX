@@ -44,3 +44,4 @@ sudo /etc/init.d/mysql start`
 
 ### Application Deployment
 1. Clone the repository to the server inside of the OCDX folder created in the /var/www/html/OCDX directory or manually copy the Framework,css,img,include,js,services and vendor directories as well as the PHP files in the root directory
+2. The application should now be working, navigate to your servers's DNS again in a web browser with OCDX(http://host/OCDX/) and the website should be working! 
