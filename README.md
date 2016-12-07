@@ -16,13 +16,20 @@ This project is a centralized system for the storing and sharing of data and scr
 1. Launch an Amazon Web Services EC2 instance with Amazon Linux as the operating system, the security group assigned should allow for incoming and outgoing connections on ports 80,22, and 3306
 2. Connect to the instance using Amazon's instructions and the key pair that you assigned to the instance
 3. Update the server using `sudo yum update`
+
 ### Install MariaDB
-4. Run the following commands to install MariaDB
-5. `sudo vi /etc/yum.repos.d/maria.repo`
-6. copy the following into this new file `[mariadb]
+1. Run the following commands to install MariaDB
+2. `sudo vi /etc/yum.repos.d/maria.repo`
+3. copy the following into this new file `[mariadb]
 name = MariaDB
 baseurl = http://yum.mariadb.org/5.5/centos6-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1`
-7. run the following 2 commands to install and start MariaDB `sudo yum install -y MariaDB-server MariaDB-client
+4. run the following 2 commands to install and start MariaDB `sudo yum install -y MariaDB-server MariaDB-client
 sudo /etc/init.d/mysql start`
+
+### Install PHP and Apache
+1. Install PHP and Apache with the following commands
+2. `sudo yum install -y httpd24 php71 php71-mysqlnd`
+3. `sudo service httpd start`
+4. You should now be able to navigate to your public DNS in a web browser and receive the Apache test page, if you cannot make sure the security groups are set up correctly in AWS
