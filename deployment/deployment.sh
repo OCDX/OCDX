@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 sudo yum update &&
 sudo yum install -y httpd24 php56 php56-mysqlnd git &&
+sudo cp /usr/share/zoneinfo/America/Chicago /etc/localtime
 sudo chmod 777 /var/www/html/ &&
 cd /var/www/html/  &&
 git clone https://github.com/btomblinson/OCDX.git &&
