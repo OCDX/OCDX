@@ -4,7 +4,7 @@ sudo yum install -y httpd24 php56 php56-mysqlnd git &&
 sudo chmod 777 /var/www/html/ &&
 cd /var/www/html/  &&
 git clone https://github.com/btomblinson/OCDX.git &&
-cp /var/www/html/OCDX/deployment/maria.rep /etc/yum.repos.d/ &&
+sudo cp /var/www/html/OCDX/deployment/maria.repo /etc/yum.repos.d/ &&
 sudo yum install -y MariaDB-server MariaDB-client &&
 sudo /etc/init.d/mysql start &&
 sudo mkdir /publicFiles  &&

@@ -685,6 +685,6 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-CREATE USER public IDENTIFIED BY 'P@ssword';
-GRANT EXECUTE ON OCDXGroup1.* to 'public'@'%';
+CREATE USER 'public'@'localhost' IDENTIFIED BY 'P@ssword';
+GRANT EXECUTE ON OCDXGroup1.* to 'public'@'localhost';
 flush privileges;
