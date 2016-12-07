@@ -25,3 +25,4 @@ This project is a centralized system for the storing and sharing of data and scr
  baseurl = http://yum.mariadb.org/5.5/centos6-amd64  
  gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB  
  gpgcheck=1`
+4. Copy and paste the deployment.sh script in the deployment directory into the command line of your server and run it, the script will install all components, clone the GitHub repository, and setup the file system and database for the site
