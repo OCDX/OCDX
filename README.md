@@ -17,12 +17,4 @@ This project is a centralized system for the storing and sharing of data and scr
 2. Connect to the instance using Amazon's instructions and the key pair that you assigned to the instance
 
 ### Installing using the script
-1. Run the following commands to setup MariaDB for yum
-2. `sudo vi /etc/yum.repos.d/maria.repo`
-3. copy the following into this new file with name,baseurl,gpgkey, and gpgcheck all being on new lines
- `[mariadb]  
- name = MariaDB  
- baseurl = http://yum.mariadb.org/5.5/centos6-amd64  
- gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB  
- gpgcheck=1`
-4. Copy and paste the deployment.sh script in the deployment directory into the command line of your server and run it, the script will install all components, clone the GitHub repository, and setup the file system and database for the site
+1. Copy and paste the deployment.sh script in the deployment directory into the command line of your server and run it, the script will install all components, clone the GitHub repository, and setup the file system and database for the site
