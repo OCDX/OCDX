@@ -20,7 +20,8 @@ This project is a centralized system for the storing and sharing of data and scr
 ### Install MariaDB
 1. Run the following commands to install MariaDB
 2. `sudo vi /etc/yum.repos.d/maria.repo`
-3. copy the following into this new file `[mariadb]
+3. copy the following into this new file 
+`[mariadb]
 name = MariaDB
 baseurl = http://yum.mariadb.org/5.5/centos6-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
