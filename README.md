@@ -15,7 +15,6 @@ This project is a centralized system for the storing and sharing of data and scr
 ### Server Setup
 1. Launch an Amazon Web Services EC2 instance with Amazon Linux as the operating system, the security group assigned should allow for incoming and outgoing connections on ports 80,22, and 3306
 2. Connect to the instance using Amazon's instructions and the key pair that you assigned to the instance
-3. Update the server using `sudo yum update`
 
 ### Installing using the script
 1. Run the following commands to setup MariaDB for yum
